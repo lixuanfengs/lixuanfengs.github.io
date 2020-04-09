@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Git常用命令 - 仙人球</title>
+
+
+    <meta name="description" content="Git 常用命令速查 1234567891011121314git branch 查看本地所有分支git status 查看当前状态 git commit 提交 git branch -a 查看所有的分支git branch -r 查看远程所有分支git commit -am &quot;init&quot; 提交并且加注释 git remote add origin git@192.168.1.119:ndshow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git常用命令">
+<meta property="og:url" content="https://lixuanfengs.github.io/2020/02/26/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="仙人球">
+<meta property="og:description" content="Git 常用命令速查 1234567891011121314git branch 查看本地所有分支git status 查看当前状态 git commit 提交 git branch -a 查看所有的分支git branch -r 查看远程所有分支git commit -am &quot;init&quot; 提交并且加注释 git remote add origin git@192.168.1.119:ndshow">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lixuanfengs.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-02-26T06:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-08T01:54:59.412Z">
+<meta property="article:author" content="Xuanfeng Li">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lixuanfengs.github.io/images/og_image.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="Git常用命令" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/CactusA2.png" alt="Git常用命令" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-02-26T06:00:00.000Z">2020-02-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/git/">git</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    34 分钟 读完 (大约 5027 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Git常用命令
+            
+        </h1>
+        <div class="content">
+            <p>Git 常用命令速查</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">git branch 查看本地所有分支</span><br><span class="line">git status 查看当前状态 </span><br><span class="line">git commit 提交 </span><br><span class="line">git branch -a 查看所有的分支</span><br><span class="line">git branch -r 查看远程所有分支</span><br><span class="line">git commit -am "init" 提交并且加注释 </span><br><span class="line">git remote add origin git@192.168.1.119:ndshow</span><br><span class="line">git push origin master 将文件给推到服务器上 </span><br><span class="line">git remote show origin 显示远程库origin里的资源 </span><br><span class="line">git push origin master:develop</span><br><span class="line">git push origin master:hb-dev 将本地库与服务器上的库进行关联 </span><br><span class="line">git checkout --track origin/dev 切换到远程dev分支</span><br><span class="line">git branch -D master develop 删除本地库develop</span><br><span class="line">git checkout -b dev 建立一个新的本地分支dev</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git rm 文件名(包括路径) 从git中删除指定文件</span><br><span class="line">git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来</span><br><span class="line">git config --list 看所有用户</span><br><span class="line">git ls-files 看已经被提交的</span><br><span class="line">git rm [file name] 删除一个文件</span><br><span class="line">git commit -a 提交当前repos的所有的改变</span><br><span class="line">git add [file name] 添加一个文件到git index</span><br><span class="line">git commit -v 当你用－v参数的时候可以看commit的差异</span><br><span class="line">git commit -m "This is the message describing the commit" 添加commit信息</span><br><span class="line">git commit -a -a是代表add，把所有的change加到git index里然后再commit</span><br><span class="line">git commit -a -v 一般提交命令</span><br><span class="line">git log 看你commit的日志</span><br><span class="line">git diff 查看尚未暂存的更新</span><br><span class="line">git rm a.a 移除文件(从暂存区和工作区中删除)</span><br><span class="line">git rm --cached a.a 移除文件(只从暂存区中删除)</span><br><span class="line">git commit -m "remove" 移除文件(从Git中删除)</span><br><span class="line">git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)</span><br><span class="line">git diff --cached 或 $ git diff --staged 查看尚未提交的更新</span><br><span class="line">git stash push 将文件给push到一个临时空间中</span><br><span class="line">git stash pop 将文件从临时空间pop下来</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:username/Hello-World.git</span><br><span class="line">git push origin master 将本地项目给提交到服务器中</span><br><span class="line"></span><br><span class="line">git pull 本地与服务器端同步</span><br><span class="line"></span><br><span class="line">git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。</span><br><span class="line">git push origin serverfix:awesomebranch</span><br><span class="line"></span><br><span class="line">git fetch 相当于是从远程获取最新版本到本地，不会自动merge</span><br><span class="line">git commit -a -m "log_message" (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ：</span><br><span class="line">git branch branch_0.1 master 从主分支master创建branch_0.1分支</span><br><span class="line">git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0</span><br><span class="line">git checkout branch_1.0/master 切换到branch_1.0/master分支</span><br><span class="line">du -hs</span><br><span class="line">git branch 删除远程branch</span><br><span class="line">git push origin :branch_remote_name</span><br><span class="line">git branch -r -d branch_remote_name</span><br></pre></td></tr></table></figure>
+
+<p><strong>初始化版本库，并提交到远程服务器端</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir WebApp</span><br><span class="line">cd WebApp</span><br><span class="line">git init 本地初始化</span><br><span class="line">touch README</span><br><span class="line">git add README 添加文件</span><br><span class="line">git commit -m 'first commit'</span><br><span class="line">git remote add origin git@github.com:lixuanfengs/WebApp.git 增加一个远程服务器端</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令会增加URL地址为‘git@github.com:lixuanfengs/WebApp.git’，名称为origin的远程服务器库，以后提交代码的时候只需要使用 origin别名即可</p>
+<h2 id="1、常用的Git命令"><a href="#1、常用的Git命令" class="headerlink" title="1、常用的Git命令"></a>1、常用的Git命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git add</td>
+<td align="left">添加至暂存区</td>
+</tr>
+<tr>
+<td align="left">git add–interactive</td>
+<td align="left">交互式添加</td>
+</tr>
+<tr>
+<td align="left">git apply</td>
+<td align="left">应用补丁</td>
+</tr>
+<tr>
+<td align="left">git am</td>
+<td align="left">应用邮件格式补丁</td>
+</tr>
+<tr>
+<td align="left">git annotate</td>
+<td align="left">同义词，等同于 git blame</td>
+</tr>
+<tr>
+<td align="left">git archive</td>
+<td align="left">文件归档打包</td>
+</tr>
+<tr>
+<td align="left">git bisect</td>
+<td align="left">二分查找</td>
+</tr>
+<tr>
+<td align="left">git blame</td>
+<td align="left">文件逐行追溯</td>
+</tr>
+<tr>
+<td align="left">git branch</td>
+<td align="left">分支管理</td>
+</tr>
+<tr>
+<td align="left">git cat-file</td>
+<td align="left">版本库对象研究工具</td>
+</tr>
+<tr>
+<td align="left">git checkout</td>
+<td align="left">检出到工作区、切换或创建分支</td>
+</tr>
+<tr>
+<td align="left">git cherry-pick</td>
+<td align="left">提交拣选</td>
+</tr>
+<tr>
+<td align="left">git citool</td>
+<td align="left">图形化提交，相当于 git gui 命令</td>
+</tr>
+<tr>
+<td align="left">git clean</td>
+<td align="left">清除工作区未跟踪文件</td>
+</tr>
+<tr>
+<td align="left">git clone</td>
+<td align="left">克隆版本库</td>
+</tr>
+<tr>
+<td align="left">git commit</td>
+<td align="left">提交</td>
+</tr>
+<tr>
+<td align="left">git config</td>
+<td align="left">查询和修改配置</td>
+</tr>
+<tr>
+<td align="left">git describe</td>
+<td align="left">通过里程碑直观地显示提交ID</td>
+</tr>
+<tr>
+<td align="left">git diff</td>
+<td align="left">差异比较</td>
+</tr>
+<tr>
+<td align="left">git difftool</td>
+<td align="left">调用图形化差异比较工具</td>
+</tr>
+<tr>
+<td align="left">git fetch</td>
+<td align="left">获取远程版本库的提交</td>
+</tr>
+<tr>
+<td align="left">git format-patch</td>
+<td align="left">创建邮件格式的补丁文件。参见 git am 命令</td>
+</tr>
+<tr>
+<td align="left">git grep</td>
+<td align="left">文件内容搜索定位工具</td>
+</tr>
+<tr>
+<td align="left">git gui</td>
+<td align="left">基于Tcl/Tk的图形化工具，侧重提交等操作</td>
+</tr>
+<tr>
+<td align="left">git help</td>
+<td align="left">帮助</td>
+</tr>
+<tr>
+<td align="left">git init</td>
+<td align="left">版本库初始化</td>
+</tr>
+<tr>
+<td align="left">git init-db*</td>
+<td align="left">同义词，等同于 git init</td>
+</tr>
+<tr>
+<td align="left">git log</td>
+<td align="left">显示提交日志</td>
+</tr>
+<tr>
+<td align="left">git merge</td>
+<td align="left">分支合并</td>
+</tr>
+<tr>
+<td align="left">git mergetool</td>
+<td align="left">图形化冲突解决</td>
+</tr>
+<tr>
+<td align="left">git mv</td>
+<td align="left">重命名</td>
+</tr>
+<tr>
+<td align="left">git pull</td>
+<td align="left">拉回远程版本库的提交</td>
+</tr>
+<tr>
+<td align="left">git push</td>
+<td align="left">推送至远程版本库</td>
+</tr>
+<tr>
+<td align="left">git rebase</td>
+<td align="left">分支变基</td>
+</tr>
+<tr>
+<td align="left">git rebase–interactive</td>
+<td align="left">交互式分支变基</td>
+</tr>
+<tr>
+<td align="left">git reflog</td>
+<td align="left">分支等引用变更记录管理</td>
+</tr>
+<tr>
+<td align="left">git remote</td>
+<td align="left">远程版本库管理</td>
+</tr>
+<tr>
+<td align="left">git repo-config*</td>
+<td align="left">同义词，等同于 git config</td>
+</tr>
+<tr>
+<td align="left">git reset</td>
+<td align="left">重置改变分支“游标”指向</td>
+</tr>
+<tr>
+<td align="left">git rev-parse</td>
+<td align="left">将各种引用表示法转换为哈希值等</td>
+</tr>
+<tr>
+<td align="left">git revert</td>
+<td align="left">反转提交</td>
+</tr>
+<tr>
+<td align="left">git rm</td>
+<td align="left">删除文件</td>
+</tr>
+<tr>
+<td align="left">git show</td>
+<td align="left">显示各种类型的对象</td>
+</tr>
+<tr>
+<td align="left">git stage*</td>
+<td align="left">同义词，等同于 git add</td>
+</tr>
+<tr>
+<td align="left">git stash</td>
+<td align="left">保存和恢复进度</td>
+</tr>
+<tr>
+<td align="left">git status</td>
+<td align="left">显示工作区文件状态</td>
+</tr>
+<tr>
+<td align="left">git tag</td>
+<td align="left">里程碑管理</td>
+</tr>
+</tbody></table>
+<h2 id="2、对象库操作相关命令"><a href="#2、对象库操作相关命令" class="headerlink" title="2、对象库操作相关命令"></a>2、对象库操作相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git commit-tree</td>
+<td align="left">从树对象创建提交</td>
+</tr>
+<tr>
+<td align="left">git hash-object</td>
+<td align="left">从标准输入或文件计算哈希值或创建对象</td>
+</tr>
+<tr>
+<td align="left">git ls-files</td>
+<td align="left">显示工作区和暂存区文件</td>
+</tr>
+<tr>
+<td align="left">git ls-tree</td>
+<td align="left">显示树对象包含的文件</td>
+</tr>
+<tr>
+<td align="left">git mktag</td>
+<td align="left">读取标准输入创建一个里程碑对象</td>
+</tr>
+<tr>
+<td align="left">git mktree</td>
+<td align="left">读取标准输入创建一个树对象</td>
+</tr>
+<tr>
+<td align="left">git read-tree</td>
+<td align="left">读取树对象到暂存区</td>
+</tr>
+<tr>
+<td align="left">git update-index</td>
+<td align="left">工作区内容注册到暂存区及暂存区管理</td>
+</tr>
+<tr>
+<td align="left">git unpack-file</td>
+<td align="left">创建临时文件包含指定 blob 的内容</td>
+</tr>
+<tr>
+<td align="left">git write-tree</td>
+<td align="left">从暂存区创建一个树对象</td>
+</tr>
+</tbody></table>
+<h2 id="3、引用操作相关命令"><a href="#3、引用操作相关命令" class="headerlink" title="3、引用操作相关命令"></a>3、引用操作相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git check-ref-format</td>
+<td align="left">检查引用名称是否符合规范</td>
+</tr>
+<tr>
+<td align="left">git for-each-ref</td>
+<td align="left">引用迭代器，用于shell编程</td>
+</tr>
+<tr>
+<td align="left">git ls-remote</td>
+<td align="left">显示远程版本库的引用</td>
+</tr>
+<tr>
+<td align="left">git name-rev</td>
+<td align="left">将提交ID显示为友好名称</td>
+</tr>
+<tr>
+<td align="left">git peek-remote*</td>
+<td align="left">过时命令，请使用 git ls-remote</td>
+</tr>
+<tr>
+<td align="left">git rev-list</td>
+<td align="left">显示版本范围</td>
+</tr>
+<tr>
+<td align="left">git show-branch</td>
+<td align="left">显示分支列表及拓扑关系</td>
+</tr>
+<tr>
+<td align="left">git show-ref</td>
+<td align="left">显示本地引用</td>
+</tr>
+<tr>
+<td align="left">git symbolic-ref</td>
+<td align="left">显示或者设置符号引用</td>
+</tr>
+<tr>
+<td align="left">git update-ref</td>
+<td align="left">更新引用的指向</td>
+</tr>
+<tr>
+<td align="left">git verify-tag</td>
+<td align="left">校验 GPG 签名的Tag</td>
+</tr>
+</tbody></table>
+<h2 id="4、版本库管理相关命令"><a href="#4、版本库管理相关命令" class="headerlink" title="4、版本库管理相关命令"></a>4、版本库管理相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git count-objects</td>
+<td align="left">显示松散对象的数量和磁盘占用</td>
+</tr>
+<tr>
+<td align="left">git filter-branch</td>
+<td align="left">版本库重构</td>
+</tr>
+<tr>
+<td align="left">git fsck</td>
+<td align="left">对象库完整性检查</td>
+</tr>
+<tr>
+<td align="left">git fsck-objects*</td>
+<td align="left">同义词，等同于 git fsck</td>
+</tr>
+<tr>
+<td align="left">git gc</td>
+<td align="left">版本库存储优化</td>
+</tr>
+<tr>
+<td align="left">git index-pack</td>
+<td align="left">从打包文件创建对应的索引文件</td>
+</tr>
+<tr>
+<td align="left">git lost-found*</td>
+<td align="left">过时，请使用 git fsck –lost-found 命令</td>
+</tr>
+<tr>
+<td align="left">git pack-objects</td>
+<td align="left">从标准输入读入对象ID，打包到文件</td>
+</tr>
+<tr>
+<td align="left">git pack-redundant</td>
+<td align="left">查找多余的 pack 文件</td>
+</tr>
+<tr>
+<td align="left">git pack-refs</td>
+<td align="left">将引用打包到 .git/packed-refs 文件中</td>
+</tr>
+<tr>
+<td align="left">git prune</td>
+<td align="left">从对象库删除过期对象</td>
+</tr>
+<tr>
+<td align="left">git prune-packed</td>
+<td align="left">将已经打包的松散对象删除</td>
+</tr>
+<tr>
+<td align="left">git relink</td>
+<td align="left">为本地版本库中相同的对象建立硬连接</td>
+</tr>
+<tr>
+<td align="left">git repack</td>
+<td align="left">将版本库未打包的松散对象打包</td>
+</tr>
+<tr>
+<td align="left">git show-index</td>
+<td align="left">读取包的索引文件，显示打包文件中的内容</td>
+</tr>
+<tr>
+<td align="left">git unpack-objects</td>
+<td align="left">从打包文件释放文件</td>
+</tr>
+<tr>
+<td align="left">git verify-pack</td>
+<td align="left">校验对象库打包文件</td>
+</tr>
+</tbody></table>
+<h2 id="4、版本库管理相关命令-1"><a href="#4、版本库管理相关命令-1" class="headerlink" title="4、版本库管理相关命令"></a>4、版本库管理相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git count-objects</td>
+<td align="left">显示松散对象的数量和磁盘占用</td>
+</tr>
+<tr>
+<td align="left">git filter-branch</td>
+<td align="left">版本库重构</td>
+</tr>
+<tr>
+<td align="left">git fsck</td>
+<td align="left">对象库完整性检查</td>
+</tr>
+<tr>
+<td align="left">git fsck-objects*</td>
+<td align="left">同义词，等同于 git fsck</td>
+</tr>
+<tr>
+<td align="left">git gc</td>
+<td align="left">版本库存储优化</td>
+</tr>
+<tr>
+<td align="left">git index-pack</td>
+<td align="left">从打包文件创建对应的索引文件</td>
+</tr>
+<tr>
+<td align="left">git lost-found*</td>
+<td align="left">过时，请使用 git fsck –lost-found 命令</td>
+</tr>
+<tr>
+<td align="left">git pack-objects</td>
+<td align="left">从标准输入读入对象ID，打包到文件</td>
+</tr>
+<tr>
+<td align="left">git pack-redundant</td>
+<td align="left">查找多余的 pack 文件</td>
+</tr>
+<tr>
+<td align="left">git pack-refs</td>
+<td align="left">将引用打包到 .git/packed-refs 文件中</td>
+</tr>
+<tr>
+<td align="left">git prune</td>
+<td align="left">从对象库删除过期对象</td>
+</tr>
+<tr>
+<td align="left">git prune-packed</td>
+<td align="left">将已经打包的松散对象删除</td>
+</tr>
+<tr>
+<td align="left">git relink</td>
+<td align="left">为本地版本库中相同的对象建立硬连接</td>
+</tr>
+<tr>
+<td align="left">git repack</td>
+<td align="left">将版本库未打包的松散对象打包</td>
+</tr>
+<tr>
+<td align="left">git show-index</td>
+<td align="left">读取包的索引文件，显示打包文件中的内容</td>
+</tr>
+<tr>
+<td align="left">git unpack-objects</td>
+<td align="left">从打包文件释放文件</td>
+</tr>
+<tr>
+<td align="left">git verify-pack</td>
+<td align="left">校验对象库打包文件</td>
+</tr>
+</tbody></table>
+<h2 id="6、邮件相关命令"><a href="#6、邮件相关命令" class="headerlink" title="6、邮件相关命令"></a>6、邮件相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git imap-send</td>
+<td align="left">将补丁通过 IMAP 发送</td>
+</tr>
+<tr>
+<td align="left">git mailinfo</td>
+<td align="left">从邮件导出提交说明和补丁</td>
+</tr>
+<tr>
+<td align="left">git mailsplit</td>
+<td align="left">将 mbox 或 Maildir 格式邮箱中邮件逐一提取为文件</td>
+</tr>
+<tr>
+<td align="left">git request-pull</td>
+<td align="left">创建包含提交间差异和执行PULL操作地址的信息</td>
+</tr>
+<tr>
+<td align="left">git send-email</td>
+<td align="left">发送邮件</td>
+</tr>
+</tbody></table>
+<h2 id="7、协议相关命令"><a href="#7、协议相关命令" class="headerlink" title="7、协议相关命令"></a>7、协议相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git daemon</td>
+<td align="left">实现Git协议</td>
+</tr>
+<tr>
+<td align="left">git http-backend</td>
+<td align="left">实现HTTP协议的CGI程序，支持智能HTTP协议</td>
+</tr>
+<tr>
+<td align="left">git instaweb</td>
+<td align="left">即时启动浏览器通过 gitweb 浏览当前版本库</td>
+</tr>
+<tr>
+<td align="left">git shell</td>
+<td align="left">受限制的shell，提供仅执行Git命令的SSH访问</td>
+</tr>
+<tr>
+<td align="left">git update-server-info</td>
+<td align="left">更新哑协议需要的辅助文件</td>
+</tr>
+<tr>
+<td align="left">git http-fetch</td>
+<td align="left">通过HTTP协议获取版本库</td>
+</tr>
+<tr>
+<td align="left">git http-push</td>
+<td align="left">通过HTTP/DAV协议推送</td>
+</tr>
+<tr>
+<td align="left">git remote-ext</td>
+<td align="left">由Git命令调用，通过外部命令提供扩展协议支持</td>
+</tr>
+<tr>
+<td align="left">git remote-fd</td>
+<td align="left">由Git命令调用，使用文件描述符作为协议接口</td>
+</tr>
+<tr>
+<td align="left">git remote-ftp</td>
+<td align="left">由Git命令调用，提供对FTP协议的支持</td>
+</tr>
+<tr>
+<td align="left">git remote-ftps</td>
+<td align="left">由Git命令调用，提供对FTPS协议的支持</td>
+</tr>
+<tr>
+<td align="left">git remote-http</td>
+<td align="left">由Git命令调用，提供对HTTP协议的支持</td>
+</tr>
+<tr>
+<td align="left">git remote-https</td>
+<td align="left">由Git命令调用，提供对HTTPS协议的支持</td>
+</tr>
+<tr>
+<td align="left">git remote-testgit</td>
+<td align="left">协议扩展示例脚本</td>
+</tr>
+</tbody></table>
+<h2 id="8、版本库转换和交互相关命令"><a href="#8、版本库转换和交互相关命令" class="headerlink" title="8、版本库转换和交互相关命令"></a>8、版本库转换和交互相关命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git archimport</td>
+<td align="left">导入Arch版本库到Git</td>
+</tr>
+<tr>
+<td align="left">git bundle</td>
+<td align="left">提交打包和解包，以便在不同版本库间传递</td>
+</tr>
+<tr>
+<td align="left">git cvsexportcommit</td>
+<td align="left">将Git的一个提交作为一个CVS检出</td>
+</tr>
+<tr>
+<td align="left">git cvsimport</td>
+<td align="left">导入CVS版本库到Git。或者使用 cvs2git</td>
+</tr>
+<tr>
+<td align="left">git cvsserver</td>
+<td align="left">Git的CVS协议模拟器，可供CVS命令访问Git版本库</td>
+</tr>
+<tr>
+<td align="left">git fast-export</td>
+<td align="left">将提交导出为 git-fast-import 格式</td>
+</tr>
+<tr>
+<td align="left">git fast-import</td>
+<td align="left">其他版本库迁移至Git的通用工具</td>
+</tr>
+<tr>
+<td align="left">git svn</td>
+<td align="left">Git 作为前端操作 Subversion</td>
+</tr>
+</tbody></table>
+<h2 id="、合并相关的辅助命令"><a href="#、合并相关的辅助命令" class="headerlink" title="、合并相关的辅助命令"></a>、合并相关的辅助命令</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git merge-base</td>
+<td align="left">供其他脚本调用，找到两个或多个提交最近的共同祖先</td>
+</tr>
+<tr>
+<td align="left">git merge-file</td>
+<td align="left">针对文件的两个不同版本执行三向文件合并</td>
+</tr>
+<tr>
+<td align="left">git merge-index</td>
+<td align="left">对index中的冲突文件调用指定的冲突解决工具</td>
+</tr>
+<tr>
+<td align="left">git merge-octopus</td>
+<td align="left">合并两个以上分支。参见 git merge 的octopus合并策略</td>
+</tr>
+<tr>
+<td align="left">git merge-one-file</td>
+<td align="left">由 git merge-index 调用的标准辅助程序</td>
+</tr>
+<tr>
+<td align="left">git merge-ours</td>
+<td align="left">合并使用本地版本，抛弃他人版本。参见 git merge 的ours合并策略</td>
+</tr>
+<tr>
+<td align="left">git merge-recursive</td>
+<td align="left">针对两个分支的三向合并。参见 git merge 的recursive合并策略</td>
+</tr>
+<tr>
+<td align="left">git merge-resolve</td>
+<td align="left">针对两个分支的三向合并。参见 git merge 的resolve合并策略</td>
+</tr>
+<tr>
+<td align="left">git merge-subtree</td>
+<td align="left">子树合并。参见 git merge 的 subtree 合并策略</td>
+</tr>
+<tr>
+<td align="left">git merge-tree</td>
+<td align="left">显式三向合并结果，不改变暂存区</td>
+</tr>
+<tr>
+<td align="left">git fmt-merge-msg</td>
+<td align="left">供执行合并操作的脚本调用，用于创建一个合并提交说明</td>
+</tr>
+<tr>
+<td align="left">git rerere</td>
+<td align="left">重用所记录的冲突解决方案</td>
+</tr>
+</tbody></table>
+<h2 id="10、-杂项"><a href="#10、-杂项" class="headerlink" title="10、 杂项"></a>10、 杂项</h2><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">简要说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">git bisect–helper</td>
+<td align="left">由 git bisect 命令调用，确认二分查找进度</td>
+</tr>
+<tr>
+<td align="left">git check-attr</td>
+<td align="left">显示某个文件是否设置了某个属性</td>
+</tr>
+<tr>
+<td align="left">git checkout-index</td>
+<td align="left">从暂存区拷贝文件至工作区</td>
+</tr>
+<tr>
+<td align="left">git cherry</td>
+<td align="left">查找没有合并到上游的提交</td>
+</tr>
+<tr>
+<td align="left">git diff-files</td>
+<td align="left">比较暂存区和工作区，相当于 git diff –raw</td>
+</tr>
+<tr>
+<td align="left">git diff-index</td>
+<td align="left">比较暂存区和版本库，相当于 git diff –cached –raw</td>
+</tr>
+<tr>
+<td align="left">git diff-tree</td>
+<td align="left">比较两个树对象，相当于 git diff –raw A B</td>
+</tr>
+<tr>
+<td align="left">git difftool–helper</td>
+<td align="left">由 git difftool 命令调用，默认要使用的差异比较工具</td>
+</tr>
+<tr>
+<td align="left">git get-tar-commit-id</td>
+<td align="left">从 git archive 创建的 tar 包中提取提交ID</td>
+</tr>
+<tr>
+<td align="left">git gui–askpass</td>
+<td align="left">命令 git gui 的获取用户口令输入界面</td>
+</tr>
+<tr>
+<td align="left">git notes</td>
+<td align="left">提交评论管理</td>
+</tr>
+<tr>
+<td align="left">git patch-id</td>
+<td align="left">补丁过滤行号和空白字符后生成补丁唯一ID</td>
+</tr>
+<tr>
+<td align="left">git quiltimport</td>
+<td align="left">将Quilt补丁列表应用到当前分支</td>
+</tr>
+<tr>
+<td align="left">git replace</td>
+<td align="left">提交替换</td>
+</tr>
+<tr>
+<td align="left">git shortlog</td>
+<td align="left">对 git log 的汇总输出，适合于产品发布说明</td>
+</tr>
+<tr>
+<td align="left">git stripspace</td>
+<td align="left">删除空行，供其他脚本调用</td>
+</tr>
+<tr>
+<td align="left">git submodule</td>
+<td align="left">子模组管理</td>
+</tr>
+<tr>
+<td align="left">git tar-tree</td>
+<td align="left">过时命令，请使用 git archive</td>
+</tr>
+<tr>
+<td align="left">git var</td>
+<td align="left">显示 Git 环境变量</td>
+</tr>
+<tr>
+<td align="left">git web–browse</td>
+<td align="left">启动浏览器以查看目录或文件</td>
+</tr>
+<tr>
+<td align="left">git whatchanged</td>
+<td align="left">显示提交历史及每次提交的改动</td>
+</tr>
+<tr>
+<td align="left">git-mergetool–lib</td>
+<td align="left">包含于其他脚本中，提供合并/差异比较工具的选择和执行</td>
+</tr>
+<tr>
+<td align="left">git-parse-remote</td>
+<td align="left">包含于其他脚本中，提供操作远程版本库的函数</td>
+</tr>
+<tr>
+<td align="left">git-sh-setup</td>
+<td align="left">包含于其他脚本中，提供 shell 编程的函数库</td>
+</tr>
+</tbody></table>
+<p><img src="/2020/02/26/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/0e1226x1333.png" alt></p>
+<h1 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h1><p>初始化仓库</p>
+<p><img src="/2020/02/26/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/80a12.png" alt></p>
+<h1 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h1><p>git-status - Show the working tree status</p>
+<p><img src="/2020/02/26/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/26d168.png" alt></p>
+<h1 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h1><p><code>git checkout</code>命令用于切换分支或恢复工作树文件。<br><code>git checkout</code>是git最常用的命令之一，同时也是一个很危险的命令，因为这条命令会重写工作区。</p>
+<p><strong>使用语法</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout [-q] [-f] [-m] [&lt;branch&gt;]</span><br><span class="line">git checkout [-q] [-f] [-m] --detach [&lt;branch&gt;]</span><br><span class="line">git checkout [-q] [-f] [-m] [--detach] &lt;commit&gt;</span><br><span class="line">git checkout [-q] [-f] [-m] [[-b|-B|--orphan] &lt;new_branch&gt;] [&lt;start_point&gt;]</span><br><span class="line">git checkout [-f|--ours|--theirs|-m|--conflict=&lt;style&gt;] [&lt;tree-ish&gt;] [--] &lt;paths&gt;…</span><br><span class="line">git checkout [-p|--patch] [&lt;tree-ish&gt;] [--] [&lt;paths&gt;…]</span><br></pre></td></tr></table></figure>
+
+<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>更新工作树中的文件以匹配索引或指定树中的版本。如果没有给出路径<code>git checkout</code>还会更新<code>HEAD</code>，将指定的分支设置为当前分支。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例-1"></a>示例-1</h4><p>以下顺序检查主分支，将Makefile还原为两个修订版本，错误地删除hello.c，并从索引中取回。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout master             <span class="comment">#(1)</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout master~2 Makefile  <span class="comment">#(2)</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> rm -f hello.c</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout hello.c            <span class="comment">#(3)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>(1) 切换分支<br>(2) 从另一个提交中取出文件<br>(3)从索引中恢复<code>hello.c</code></p>
+<p>如果想要检出索引中的所有C源文件，可以使用以下命令 -</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- &#39;*.c&#39;</span><br></pre></td></tr></table></figure>
+
+<p>注意:*.c是使用引号的。 文件hello.c也将被检出，即使它不再在工作树中，因为文件globbing用于匹配索引中的条目(而不是在shell的工作树中)。</p>
+<p>如果有一个分支也命名为hello.c，这一步将被混淆为一个指令切换到该分支。应该写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.c</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例-2</strong></p>
+<p>在错误的分支工作后，想切换到正确的分支，则使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout mytopic</span><br></pre></td></tr></table></figure>
+
+<p>但是，您的”错误”分支和正确的”mytopic”分支可能会在在本地修改的文件中有所不同，在这种情况下，上述检出将会失败：</p>
+<p>$ git checkout mytopic<br>error: You have local changes to ‘frotz’; not switching branches.</p>
+<p>可以将-m标志赋给命令，这将尝试三路合并：</p>
+<p>$ git checkout -m mytopic<br>Auto-merging frotz</p>
+<p>在这种三路合并之后，本地的修改没有在索引文件中注册，所以git diff会显示从新分支的提示之后所做的更改。</p>
+<p><strong>示例-3</strong></p>
+<p>当使用-m选项切换分支时发生合并冲突时，会看到如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -m mytopic</span><br><span class="line">Auto-merging frotz</span><br><span class="line">ERROR: Merge conflict in frotz</span><br><span class="line">fatal: merge program failed</span><br></pre></td></tr></table></figure>
+
+<p>此时，git diff会显示上一个示例中干净合并的更改以及冲突文件中的更改。 编辑并解决冲突，并用常规方式用git add来标记它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ edit frotz # 编辑 frotz 文件中内容，然后重新添加</span><br><span class="line">$ git add frotz</span><br></pre></td></tr></table></figure>
+
+<p><strong>其它示例</strong></p>
+<p>git checkout的主要功能就是迁出一个分支的特定版本。默认是迁出分支的HEAD版本<br>一此用法示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master     #&#x2F;&#x2F;取出master版本的head。</span><br><span class="line">$ git checkout tag_name    #&#x2F;&#x2F;在当前分支上 取出 tag_name 的版本</span><br><span class="line">$ git checkout  master file_name  #&#x2F;&#x2F;放弃当前对文件file_name的修改</span><br><span class="line">$ git checkout  commit_id file_name  #&#x2F;&#x2F;取文件file_name的 在commit_id是的版本。commit_id为 git commit 时的sha值。</span><br></pre></td></tr></table></figure>
+
+<p>$ git checkout -b dev/1.5.4 origin/dev/1.5.4</p>
+<h1 id="从远程dev-1-5-4分支取得到本地分支-dev-1-5-4"><a href="#从远程dev-1-5-4分支取得到本地分支-dev-1-5-4" class="headerlink" title="从远程dev/1.5.4分支取得到本地分支/dev/1.5.4"></a>从远程dev/1.5.4分支取得到本地分支/dev/1.5.4</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- hello.rb</span><br><span class="line">#这条命令把hello.rb从HEAD中签出.</span><br><span class="line">$ git checkout .</span><br><span class="line">#这条命令把 当前目录所有修改的文件 从HEAD中签出并且把它恢复成未修改时的样子.</span><br><span class="line">#注意：在使用 git checkout 时，如果其对应的文件被修改过，那么该修改会被覆盖掉。</span><br></pre></td></tr></table></figure>
+
+<h1 id="git-reset-–hard"><a href="#git-reset-–hard" class="headerlink" title="git reset -–hard"></a>git reset -–hard</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^         回退到上个版本</span><br><span class="line">$ git reset --hard HEAD~3        回退到前3次提交之前，以此类推，回退到n次提交之前</span><br><span class="line">$ git reset --hard commit_id     退到&#x2F;进到 指定commit的sha码</span><br></pre></td></tr></table></figure>
+
+<p><strong>git reset -–hard</strong><br>彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 <strong>慎用</strong>！</p>
+<p><strong>git fsck –lost-found</strong><br>这个命令可以恢复git add过的文件</p>
+<h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><ul>
+<li>git reset –mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息</li>
+<li>git reset –soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可</li>
+</ul>
+<h1 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">commit 88afe0e02adcdfea6844bb627de97da21eb10af1</span><br><span class="line">Merge: 14b4dca d7e7346</span><br><span class="line">Author: w3cschool &lt;w3c@w3cschool.cc&gt;</span><br><span class="line">Date:   Sun Mar 1 15:03:42 2015 +0800</span><br><span class="line"></span><br><span class="line">    Merge branch &#39;change_site&#39;</span><br><span class="line">    </span><br><span class="line">    Conflicts:</span><br><span class="line">        test.txt</span><br><span class="line"></span><br><span class="line">commit 14b4dcadbdc847207651d5a9fae0d315057f346e</span><br><span class="line">Author: w3cschool &lt;w3c@w3cschool.cc&gt;</span><br><span class="line">Date:   Sun Mar 1 14:53:15 2015 +0800</span><br><span class="line"></span><br><span class="line">    新增加一行</span><br><span class="line"></span><br><span class="line">commit d7e734640da06055e107eaf29cf350b3f1de1c2c</span><br><span class="line">Author: w3cschool &lt;w3c@w3cschool.cc&gt;</span><br><span class="line">Date:   Sun Mar 1 14:48:57 2015 +0800</span><br><span class="line"></span><br><span class="line">    changed the site</span><br><span class="line"></span><br><span class="line">commit 556f0a0637978097b82287ac665a717623b21f3f</span><br><span class="line">Author: w3cschool &lt;w3c@w3cschool.cc&gt;</span><br><span class="line">Date:   Sun Mar 1 14:40:34 2015 +0800</span><br><span class="line"></span><br><span class="line">    removed test2.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="–oneline"><a href="#–oneline" class="headerlink" title="–oneline"></a>–oneline</h2><p>查看历史记录的简洁的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline</span><br><span class="line">88afe0e Merge branch &#39;change_site&#39;</span><br><span class="line">14b4dca 新增加一行</span><br><span class="line">d7e7346 changed the site</span><br><span class="line">556f0a0 removed test2.txt</span><br><span class="line">2e082b7 add test2.txt</span><br><span class="line">048598f add test.txt</span><br><span class="line">85fc7e7 test comment from w3cschool.cc</span><br></pre></td></tr></table></figure>
+
+<p>这告诉我们的是，此项目的开发历史。<br>我们还可以用 ``选项，查看历史中什么时候出现了分支、合并。</p>
+<h2 id="–graph"><a href="#–graph" class="headerlink" title="–graph"></a>–graph</h2><p>查看历史中什么时候出现了分支、合并。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --graph</span><br><span class="line">*   88afe0e Merge branch &#39;change_site&#39;</span><br><span class="line">|\  </span><br><span class="line">| * d7e7346 changed the site</span><br><span class="line">* | 14b4dca 新增加一行</span><br><span class="line">|&#x2F;  </span><br><span class="line">* 556f0a0 removed test2.txt</span><br><span class="line">* 2e082b7 add test2.txt</span><br><span class="line">* 048598f add test.txt</span><br><span class="line">* 85fc7e7 test comment from w3cschool.cc</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以更清楚明了地看到何时工作分叉、又何时归并。<br>你也可以用 <code>--reverse</code>参数来逆向显示所有日志。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git log --reverse --oneline</span><br><span class="line">85fc7e7 test comment from w3cschool.cc</span><br><span class="line">048598f add test.txt</span><br><span class="line">2e082b7 add test2.txt</span><br><span class="line">556f0a0 removed test2.txt</span><br><span class="line">d7e7346 changed the site</span><br><span class="line">14b4dca 新增加一行</span><br><span class="line">88afe0e Merge branch &#39;change_site&#39;</span><br></pre></td></tr></table></figure>
+
+<p>如果只想查找指定用户的提交日志可以使用命令：<code>git log --author</code><br>例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git log --author&#x3D;Linus --oneline -5</span><br><span class="line">81b50f3 Move &#39;builtin-*&#39; into a &#39;builtin&#x2F;&#39; subdirectory</span><br><span class="line">3bb7256 make &quot;index-pack&quot; a built-in</span><br><span class="line">377d027 make &quot;git pack-redundant&quot; a built-in</span><br><span class="line">b532581 make &quot;git unpack-file&quot; a built-in</span><br><span class="line">112dd51 make &quot;mktag&quot; a built-in</span><br></pre></td></tr></table></figure>
+
+<p>如果你要指定日期，可以执行几个选项：<code>--since</code> 和 <code>--before</code>，但是你也可以用 <code>--until</code> 和 <code>--after</code>。<br>例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 –no-merges 选项以隐藏合并提交）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline --before&#x3D;&#123;3.weeks.ago&#125; --after&#x3D;&#123;2010-04-18&#125; --no-merges</span><br><span class="line">5469e2d Git 1.7.1-rc2</span><br><span class="line">d43427d Documentation&#x2F;remote-helpers: Fix typos and improve language</span><br><span class="line">272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">b6c8d2d Documentation&#x2F;remote-helpers: Add invocation section</span><br><span class="line">5ce4f4e Documentation&#x2F;urls: Rewrite to accomodate transport::address</span><br><span class="line">00b84e9 Documentation&#x2F;remote-helpers: Rewrite description</span><br><span class="line">03aa87e Documentation: Describe other situations where -z affects git diff</span><br><span class="line">77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">636db2c t3301: add tests to use --format&#x3D;&quot;%N&quot;</span><br></pre></td></tr></table></figure>
+
+<p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log" target="_blank" rel="noopener">http://git-scm.com/docs/git-log</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/git/" rel="tag">git</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay_z.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/02/26/Git%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Git分支管理</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/02/25/Git%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
+                <span class="level-item">Git安装配置</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '4e4497f2b3716fb4b471',
+        clientSecret: '0c982424c1e0acce984bd955ae1a361dd664b814',
+        id: 'f227e43ff136c51c36d26658617a96b8',
+        repo: 'blog_comment',
+        owner: 'lixuanfengs',
+        admin: "lixuanfengs",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/logo.png" alt="李喧锋">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        李喧锋
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        software engineer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,henan</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            17
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            11
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            13
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/lixuanfengs">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#1、常用的Git命令">
+        <span class="has-mr-6">1.1</span>
+        <span>1、常用的Git命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#2、对象库操作相关命令">
+        <span class="has-mr-6">1.2</span>
+        <span>2、对象库操作相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#3、引用操作相关命令">
+        <span class="has-mr-6">1.3</span>
+        <span>3、引用操作相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#4、版本库管理相关命令">
+        <span class="has-mr-6">1.4</span>
+        <span>4、版本库管理相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#4、版本库管理相关命令-1">
+        <span class="has-mr-6">1.5</span>
+        <span>4、版本库管理相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#6、邮件相关命令">
+        <span class="has-mr-6">1.6</span>
+        <span>6、邮件相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#7、协议相关命令">
+        <span class="has-mr-6">1.7</span>
+        <span>7、协议相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#8、版本库转换和交互相关命令">
+        <span class="has-mr-6">1.8</span>
+        <span>8、版本库转换和交互相关命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#、合并相关的辅助命令">
+        <span class="has-mr-6">1.9</span>
+        <span>、合并相关的辅助命令</span>
+        </a></li><li>
+        <a class="is-flex" href="#10、-杂项">
+        <span class="has-mr-6">1.10</span>
+        <span>10、 杂项</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#git-init">
+        <span class="has-mr-6">2</span>
+        <span>git init</span>
+        </a></li><li>
+        <a class="is-flex" href="#git-status">
+        <span class="has-mr-6">3</span>
+        <span>git status</span>
+        </a></li><li>
+        <a class="is-flex" href="#git-checkout">
+        <span class="has-mr-6">4</span>
+        <span>git checkout</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#描述">
+        <span class="has-mr-6">4.1</span>
+        <span>描述</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#示例">
+        <span class="has-mr-6">4.1.1</span>
+        <span>示例</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#从远程dev-1-5-4分支取得到本地分支-dev-1-5-4">
+        <span class="has-mr-6">5</span>
+        <span>从远程dev/1.5.4分支取得到本地分支/dev/1.5.4</span>
+        </a></li><li>
+        <a class="is-flex" href="#git-reset-–hard">
+        <span class="has-mr-6">6</span>
+        <span>git reset -–hard</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#相关命令">
+        <span class="has-mr-6">6.1</span>
+        <span>相关命令</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#git-log">
+        <span class="has-mr-6">7</span>
+        <span>git log</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#–oneline">
+        <span class="has-mr-6">7.1</span>
+        <span>–oneline</span>
+        </a></li><li>
+        <a class="is-flex" href="#–graph">
+        <span class="has-mr-6">7.2</span>
+        <span>–graph</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Lixuanfengs</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Docker/">
+            <span class="level-start">
+                <span class="level-item">Docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java%E9%AB%98%E7%BA%A7/">
+            <span class="level-start">
+                <span class="level-item">Java高级</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/List-Set-Map/">
+            <span class="level-start">
+                <span class="level-item">List Set Map</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/enum-annotation/">
+            <span class="level-start">
+                <span class="level-item">enum annotation</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B1%BB/">
+            <span class="level-start">
+                <span class="level-item">java中常用的类</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vagrant/">
+            <span class="level-start">
+                <span class="level-item">vagrant</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%9B%E5%9E%8B/">
+            <span class="level-start">
+                <span class="level-item">泛型</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%A8%E5%86%8C%E7%A0%81%E7%A0%B4%E8%A7%A3idea/">
+            <span class="level-start">
+                <span class="level-item">注册码破解idea</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%A0%B4%E8%A7%A3Sketch%E6%96%B9%E6%B3%95%E5%8F%8A%E5%AE%89%E8%A3%85%E5%8C%85/">
+            <span class="level-start">
+                <span class="level-item">破解Sketch方法及安装包</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+            <span class="level-start">
+                <span class="level-item">线程的基本概念以及使用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/IO-%E6%B5%81/" style="font-size: 10px;">IO 流</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">Java 多线程</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Ps/" style="font-size: 10px;">Ps</a> <a href="/tags/Sketch/" style="font-size: 10px;">Sketch</a> <a href="/tags/enum-annotation/" style="font-size: 10px;">enum annotation</a> <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/git-windows-Linux/" style="font-size: 10px;">git windows Linux</a> <a href="/tags/idea-IntelliJ-IDEA-jetbrains/" style="font-size: 10px;">idea IntelliJ IDEA jetbrains</a> <a href="/tags/java%E9%AB%98%E7%BA%A7/" style="font-size: 10px;">java高级</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/CactusA2.png" alt="Git常用命令" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 lixuanfeng&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://lixuanfengs.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

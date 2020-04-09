@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Git实际操作 - 仙人球</title>
+
+
+    <meta name="description" content="Git 远程仓库地址变更  以下均以项目git_test为例：  12老地址：http:&#x2F;&#x2F;192.168.1.12:9797&#x2F;john&#x2F;git_test.git 新地址：http:&#x2F;&#x2F;192.168.100.235:9797&#x2F;john&#x2F;git_test.git  远程仓库名称： origin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git实际操作">
+<meta property="og:url" content="https://lixuanfengs.github.io/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="仙人球">
+<meta property="og:description" content="Git 远程仓库地址变更  以下均以项目git_test为例：  12老地址：http:&#x2F;&#x2F;192.168.1.12:9797&#x2F;john&#x2F;git_test.git 新地址：http:&#x2F;&#x2F;192.168.100.235:9797&#x2F;john&#x2F;git_test.git  远程仓库名称： origin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lixuanfengs.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-02-26T07:45:30.000Z">
+<meta property="article:modified_time" content="2020-04-08T01:54:59.395Z">
+<meta property="article:author" content="Xuanfeng Li">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lixuanfengs.github.io/images/og_image.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="Git实际操作" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/CactusA2.png" alt="Git实际操作" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-02-26T07:45:30.000Z">2020-02-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/git/">git</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 分钟 读完 (大约 2190 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Git实际操作
+            
+        </h1>
+        <div class="content">
+            <p>Git 远程仓库地址变更</p>
+<blockquote>
+<p>以下均以项目git_test为例：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">老地址：http:&#x2F;&#x2F;192.168.1.12:9797&#x2F;john&#x2F;git_test.git </span><br><span class="line">新地址：http:&#x2F;&#x2F;192.168.100.235:9797&#x2F;john&#x2F;git_test.git</span><br></pre></td></tr></table></figure>
+
+<p>远程仓库名称： origin</p>
+<a id="more"></a>
+
+<h2 id="方法一-通过命令直接修改远程地址"><a href="#方法一-通过命令直接修改远程地址" class="headerlink" title="方法一 通过命令直接修改远程地址"></a>方法一 通过命令直接修改远程地址</h2><p>进入git_test根目录<br><strong>git remote</strong> 查看所有远程仓库， <strong>git remote xxx</strong> 查看指定远程仓库地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin http://192.168.100.235:9797/john/git_test.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二-通过命令先删除再添加远程仓库"><a href="#方法二-通过命令先删除再添加远程仓库" class="headerlink" title="方法二 通过命令先删除再添加远程仓库"></a>方法二 通过命令先删除再添加远程仓库</h2><p>进入git_test根目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote 查看所有远程仓库， git remote xxx 查看指定远程仓库地址</span><br><span class="line">git remote rm origin</span><br><span class="line">git remote add origin http://192.168.100.235:9797/john/git_test.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法三-直接修改配置文件"><a href="#方法三-直接修改配置文件" class="headerlink" title="方法三 直接修改配置文件"></a>方法三 直接修改配置文件</h2><p>进入git_test/.git<br>vim config</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[core] </span><br><span class="line">repositoryformatversion = 0 </span><br><span class="line">filemode = true </span><br><span class="line">logallrefupdates = true </span><br><span class="line">precomposeunicode = true </span><br><span class="line">[remote "origin"] </span><br><span class="line">url = http://192.168.100.235:9797/shimanqiang/assistant.git </span><br><span class="line">fetch = +refs/heads/*:refs/remotes/origin/* </span><br><span class="line">[branch "master"] </span><br><span class="line">remote = origin </span><br><span class="line">merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+
+<p>修改 [remote “origin”]下面的url即可</p>
+<h2 id="方法四-通过第三方git客户端修改。"><a href="#方法四-通过第三方git客户端修改。" class="headerlink" title="方法四 通过第三方git客户端修改。"></a>方法四 通过第三方git客户端修改。</h2><p>以SourceTree为例，点击 仓库 -&gt; 仓库配置 -&gt; 远程仓库 即可管理此项目中配置的所有远程仓库， 而且这个界面最下方还可以点击编辑配置文件，同样可以完成方法三。</p>
+<h1 id="git回滚到任意版本"><a href="#git回滚到任意版本" class="headerlink" title="git回滚到任意版本"></a>git回滚到任意版本</h1><p><strong>回滚到指定的版本</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard e377f60e28c8b84158</span><br></pre></td></tr></table></figure>
+
+<p><strong>强制提交</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f origin master</span><br></pre></td></tr></table></figure>
+
+<p>完美<br>ba87f5b62d581d3a109a78982ca478643c4c6800</p>
+<hr>
+<p>先显示提交的log</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> -3</span></span><br><span class="line">commit 4dc08bb8996a6ee02f</span><br><span class="line">Author: Mark &lt;xxx@xx.com&gt;</span><br><span class="line">Date:   Wed Sep 7 08:08:53 2016 +0800</span><br><span class="line"></span><br><span class="line">    xxxxx</span><br><span class="line"></span><br><span class="line">commit 9cac9ba76574da2167</span><br><span class="line">Author: xxx&lt;xx@qq.com&gt;</span><br><span class="line">Date:   Tue Sep 6 22:18:59 2016 +0800</span><br><span class="line"></span><br><span class="line">    improved the requst</span><br><span class="line"></span><br><span class="line">commit e377f60e28c8b84158</span><br><span class="line">Author: xxx&lt;xxx@qq.com&gt;</span><br><span class="line">Date:   Tue Sep 6 14:42:44 2016 +0800</span><br><span class="line"></span><br><span class="line">    changed the password from empty to max123</span><br></pre></td></tr></table></figure>
+
+<h1 id="Git-pull-强制覆盖本地文件"><a href="#Git-pull-强制覆盖本地文件" class="headerlink" title="Git pull 强制覆盖本地文件"></a>Git pull 强制覆盖本地文件</h1><p><strong>远程获取最新版本到本地</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> git fetch --all</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>相当于是从远程获取最新版本到本地，不会自动merge<br>只是下载远程的库的内容，不做任何的合并</p>
+</blockquote>
+<p><strong>彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 *慎用* ！</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> git reset --hard origin/master</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除所有git add的文件（当然这不包括未置于版控制下的文件 untracked files）<br>把HEAD指向刚刚下载的最新的版本</p>
+</blockquote>
+<h1 id="Git-pull-强制覆盖本地文件-1"><a href="#Git-pull-强制覆盖本地文件-1" class="headerlink" title="Git pull 强制覆盖本地文件"></a>Git pull 强制覆盖本地文件</h1><p><strong>强制覆盖远程分支</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin branch-name --force</span><br></pre></td></tr></table></figure>
+
+<p><strong>Git 强制推送方法</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push -u origin master -f</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>（一般不建议使用）</p>
+</blockquote>
+<h1 id="git丢弃本地修改的所有文件（新增、删除、修改）"><a href="#git丢弃本地修改的所有文件（新增、删除、修改）" class="headerlink" title="git丢弃本地修改的所有文件（新增、删除、修改）"></a>git丢弃本地修改的所有文件（新增、删除、修改）</h1><p>本地修改了许多文件，其中有些是新增的，因为开发需要这些都不要了，想要丢弃掉，可以使用如下命令：</p>
+<p><strong>本地所有修改的。没有的提交的，都返回到原来的状态</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout .</span><br></pre></td></tr></table></figure>
+
+<p><strong>把所有没有提交的修改暂存到stash里面。可用git stash pop回复。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash #</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回到某个节点，不保留修改。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HASH</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回到某个节点。保留修改</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HASH</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回到某个节点</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -df</span><br></pre></td></tr></table></figure>
+
+<p><strong>git clean</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-n 显示 将要 删除的 文件 和  目录</span><br><span class="line">-f 删除 文件</span><br><span class="line">-df 删除 文件 和 目录</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout . &amp;&amp; git clean -xdf</span><br></pre></td></tr></table></figure>
+
+<p><strong>把所有没有提交的修改暂存到stash里面。可用git stash pop回复。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash #</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回到某个节点，不保留修改。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HASH</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回到某个节点。保留修改</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HASH</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回到某个节点</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -df</span><br></pre></td></tr></table></figure>
+
+<p><strong>git clean</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-n 显示 将要 删除的 文件 和  目录</span><br><span class="line">-f 删除 文件</span><br><span class="line">-df 删除 文件 和 目录</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout . &amp;&amp; git clean -xdf</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置仓库的SSH公钥"><a href="#配置仓库的SSH公钥" class="headerlink" title="配置仓库的SSH公钥"></a>配置仓库的SSH公钥</h1><p>你可以按如下命令来生成 sshkey:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "xxxxx@xxxxx.com"  </span><br><span class="line"><span class="meta">#</span><span class="bash"> Generating public/private rsa key pair...</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<blockquote>
+<p>按照提示完成三次回车，即可生成 ssh key。</p>
+</blockquote>
+<p>通过查看<code>~/.ssh/id_rsa.pub</code>文件内容，获取到你的 public key</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br><span class="line"><span class="meta">#</span><span class="bash"> ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/2c2462x1394.png" alt></p>
+<h1 id="码云上添加SSH公钥"><a href="#码云上添加SSH公钥" class="headerlink" title="码云上添加SSH公钥"></a>码云上添加SSH公钥</h1><h2 id="一、打开终端输入"><a href="#一、打开终端输入" class="headerlink" title="一、打开终端输入"></a>一、打开终端输入</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "xxxxx@xxxxx.com"  </span><br><span class="line"><span class="meta">#</span><span class="bash">Generating public/private rsa key pair...</span></span><br></pre></td></tr></table></figure>
+
+<p>三次回车即可生成 ssh key</p>
+<p><img src="/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/1cba02ead57c55x335.png" alt></p>
+<h2 id="二、查看你的-public-key"><a href="#二、查看你的-public-key" class="headerlink" title="二、查看你的 public key"></a>二、查看你的 public key</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br><span class="line"><span class="meta">#</span><span class="bash"> ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/0518970x86.png" alt></p>
+<h2 id="三、码云上添加个人公钥"><a href="#三、码云上添加个人公钥" class="headerlink" title="三、码云上添加个人公钥"></a>三、码云上添加个人公钥</h2><p>复制以上公钥，添加到马云的个人私钥里面</p>
+<h2 id="四、查看状态"><a href="#四、查看状态" class="headerlink" title="四、查看状态"></a>四、查看状态</h2><p><strong>添加后，在终端（Terminal）中输入</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@gitee.com</span><br></pre></td></tr></table></figure>
+
+<p>若返回以下信息，则证明添加成功。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi liqingbo! You've successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/E:%5Chexo%5Csource_posts%5CGit%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C%5C6d226747x39.png" alt></p>
+<h2 id="五、配置git-pull-push-免密码"><a href="#五、配置git-pull-push-免密码" class="headerlink" title="五、配置git pull/push 免密码"></a>五、配置git pull/push 免密码</h2><p>进入项目根目录，也就是.git所在目录<br>终端输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi .git/config</span><br></pre></td></tr></table></figure>
+
+<p>文件代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">        repositoryformatversion = 0</span><br><span class="line">        filemode = true</span><br><span class="line">        bare = false</span><br><span class="line">        logallrefupdates = true</span><br><span class="line">[remote "origin"]</span><br><span class="line">        url = git@gitee.com:liqingbo/项目.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch "master"]</span><br><span class="line">        remote = origin</span><br><span class="line">        merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+
+<p>修改配置文件</p>
+<p>HTTPS传输的地址，你需要改成SSH的传输地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = https://@gitee.com/liqingbo/项目.git</span><br></pre></td></tr></table></figure>
+
+<p>改成</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = git@gitee.com:liqingbo/项目.git</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<blockquote>
+<p>注：<a href="https://xn--gitgitee-1c2ne59hijh.com/" target="_blank" rel="noopener">https://改成git和gitee.com</a>，后面的“/”改成“:”</p>
+</blockquote>
+<p>这样使用命令 git pull/push 就不用输入密码了，这是因为刚才在生成公钥时，没有输入密码，所以当你选择SSH地址传输时，就可免密码使用命令 git pull/push。</p>
+<h1 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h1><p>人生不如意之事十之八九，合并分支往往也不是一帆风顺的。</p>
+<p>准备新的feature1分支，继续我们的新分支开发：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b feature1</span></span><br><span class="line">Switched to a new branch 'feature1'</span><br></pre></td></tr></table></figure>
+
+<p>修改readme.txt最后一行，改为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Creating a new branch is quick AND simple.</span><br></pre></td></tr></table></figure>
+
+<p>在feature1分支上提交：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add readme.txt</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"AND simple"</span></span></span><br><span class="line">[feature1 14096d0] AND simple 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>切换到master分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout master</span></span><br><span class="line">Switched to branch 'master'</span><br><span class="line">Your branch is ahead of 'origin/master' by 1 commit.</span><br><span class="line">  (use "git push" to publish your local commits)</span><br></pre></td></tr></table></figure>
+
+<p>Git还会自动提示我们当前master分支比远程的master分支要超前1个提交。</p>
+<p>在master分支上把readme.txt文件的最后一行改为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Creating a new branch is quick &amp; simple.</span><br></pre></td></tr></table></figure>
+
+<p>提交：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add readme.txt </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"&amp; simple"</span></span></span><br><span class="line">[master 5dc6824] &amp; simple</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>现在，master分支和feature1分支各自都分别有新的提交，变成了这样：</p>
+<p><img src="/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/ee36d_425x272.png" alt></p>
+<p>这种情况下，Git无法执行“快速合并”，只能试图把各自的修改合并起来，但这种合并就可能会有冲突，我们试试看：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge feature1</span></span><br><span class="line"></span><br><span class="line">Auto-merging readme.txt</span><br><span class="line">CONFLICT (content): Merge conflict in readme.txt</span><br><span class="line">Automatic merge failed; fix conflicts and then commit the result.</span><br></pre></td></tr></table></figure>
+
+<p>果然冲突了！Git告诉我们，readme.txt文件存在冲突，必须手动解决冲突后再提交。git status也可以告诉我们冲突的文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">Your branch is ahead of 'origin/master' by 2 commits.</span><br><span class="line">  (use "git push" to publish your local commits)</span><br><span class="line"></span><br><span class="line">You have unmerged paths.</span><br><span class="line">  (fix conflicts and run "git commit")</span><br><span class="line">  (use "git merge --abort" to abort the merge)</span><br><span class="line"></span><br><span class="line">Unmerged paths:</span><br><span class="line">  (use "git add &lt;file&gt;..." to mark resolution)</span><br><span class="line"></span><br><span class="line">    both modified:   readme.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use "git add" and/or "git commit -a")</span><br></pre></td></tr></table></figure>
+
+<p>我们可以直接查看readme.txt的内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br><span class="line">Git has a mutable index called stage.</span><br><span class="line">Git tracks changes of files.</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">Creating a new branch is quick &amp; simple.</span><br><span class="line">=======</span><br><span class="line">Creating a new branch is quick AND simple.</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;&gt;&gt;&gt;&gt; feature1</span></span><br></pre></td></tr></table></figure>
+
+<p>Git用&lt;&lt;&lt;&lt;&lt;&lt;&lt;，=======，&gt;&gt;&gt;&gt;&gt;&gt;&gt;标记出不同分支的内容，我们修改如下后保存：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Creating a new branch is quick and simple.</span><br></pre></td></tr></table></figure>
+
+<p>再提交：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add readme.txt </span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"conflict fixed"</span></span></span><br><span class="line"></span><br><span class="line">[master cf810e4] conflict fixed</span><br></pre></td></tr></table></figure>
+
+<p>现在，master分支和feature1分支变成了下图所示：</p>
+<p><img src="/2020/02/26/Git%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/ee36d_425x272.png" alt></p>
+<p>用带参数的git log也可以看到分支的合并情况：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> --graph --pretty=oneline --abbrev-commit</span></span><br><span class="line">*   cf810e4 (HEAD -&gt; master) conflict fixed</span><br><span class="line">|\  </span><br><span class="line">| * 14096d0 (feature1) AND simple</span><br><span class="line">* | 5dc6824 &amp; simple</span><br><span class="line">|/  </span><br><span class="line">* b17d20e branch test</span><br><span class="line">* d46f35e (origin/master) remove test.txt</span><br><span class="line">* b84166e add test.txt</span><br><span class="line">* 519219b git tracks changes</span><br><span class="line">* e43a48b understand how stage works</span><br><span class="line">* 1094adb append GPL</span><br><span class="line">* e475afc add distributed</span><br><span class="line">* eaadf4e wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>最后，删除feature1分支：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -d feature1</span></span><br><span class="line">Deleted branch feature1 (was 14096d0).</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。</p>
+<p>解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。</p>
+<p>用git log –graph命令可以看到分支合并图。</p>
+<p>感觉本站内容不错，读后有收获？</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/git/" rel="tag">git</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay_z.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/02/26/Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Git服务器搭建</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/02/26/Git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/">
+                <span class="level-item">Git远程仓库</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '4e4497f2b3716fb4b471',
+        clientSecret: '0c982424c1e0acce984bd955ae1a361dd664b814',
+        id: '70fdc6a19a88be0e424b8781f314a404',
+        repo: 'blog_comment',
+        owner: 'lixuanfengs',
+        admin: "lixuanfengs",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/logo.png" alt="李喧锋">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        李喧锋
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        software engineer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,henan</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            17
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            11
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            13
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/lixuanfengs">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#方法一-通过命令直接修改远程地址">
+        <span class="has-mr-6">1.1</span>
+        <span>方法一 通过命令直接修改远程地址</span>
+        </a></li><li>
+        <a class="is-flex" href="#方法二-通过命令先删除再添加远程仓库">
+        <span class="has-mr-6">1.2</span>
+        <span>方法二 通过命令先删除再添加远程仓库</span>
+        </a></li><li>
+        <a class="is-flex" href="#方法三-直接修改配置文件">
+        <span class="has-mr-6">1.3</span>
+        <span>方法三 直接修改配置文件</span>
+        </a></li><li>
+        <a class="is-flex" href="#方法四-通过第三方git客户端修改。">
+        <span class="has-mr-6">1.4</span>
+        <span>方法四 通过第三方git客户端修改。</span>
+        </a></li></ul><li>
+        <a class="is-flex" href="#git回滚到任意版本">
+        <span class="has-mr-6">2</span>
+        <span>git回滚到任意版本</span>
+        </a></li><li>
+        <a class="is-flex" href="#Git-pull-强制覆盖本地文件">
+        <span class="has-mr-6">3</span>
+        <span>Git pull 强制覆盖本地文件</span>
+        </a></li><li>
+        <a class="is-flex" href="#Git-pull-强制覆盖本地文件-1">
+        <span class="has-mr-6">4</span>
+        <span>Git pull 强制覆盖本地文件</span>
+        </a></li><li>
+        <a class="is-flex" href="#git丢弃本地修改的所有文件（新增、删除、修改）">
+        <span class="has-mr-6">5</span>
+        <span>git丢弃本地修改的所有文件（新增、删除、修改）</span>
+        </a></li><li>
+        <a class="is-flex" href="#配置仓库的SSH公钥">
+        <span class="has-mr-6">6</span>
+        <span>配置仓库的SSH公钥</span>
+        </a></li><li>
+        <a class="is-flex" href="#码云上添加SSH公钥">
+        <span class="has-mr-6">7</span>
+        <span>码云上添加SSH公钥</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#一、打开终端输入">
+        <span class="has-mr-6">7.1</span>
+        <span>一、打开终端输入</span>
+        </a></li><li>
+        <a class="is-flex" href="#二、查看你的-public-key">
+        <span class="has-mr-6">7.2</span>
+        <span>二、查看你的 public key</span>
+        </a></li><li>
+        <a class="is-flex" href="#三、码云上添加个人公钥">
+        <span class="has-mr-6">7.3</span>
+        <span>三、码云上添加个人公钥</span>
+        </a></li><li>
+        <a class="is-flex" href="#四、查看状态">
+        <span class="has-mr-6">7.4</span>
+        <span>四、查看状态</span>
+        </a></li><li>
+        <a class="is-flex" href="#五、配置git-pull-push-免密码">
+        <span class="has-mr-6">7.5</span>
+        <span>五、配置git pull/push 免密码</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#解决冲突">
+        <span class="has-mr-6">8</span>
+        <span>解决冲突</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#小结">
+        <span class="has-mr-6">8.1</span>
+        <span>小结</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Lixuanfengs</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Docker/">
+            <span class="level-start">
+                <span class="level-item">Docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java%E9%AB%98%E7%BA%A7/">
+            <span class="level-start">
+                <span class="level-item">Java高级</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/List-Set-Map/">
+            <span class="level-start">
+                <span class="level-item">List Set Map</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/enum-annotation/">
+            <span class="level-start">
+                <span class="level-item">enum annotation</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B1%BB/">
+            <span class="level-start">
+                <span class="level-item">java中常用的类</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vagrant/">
+            <span class="level-start">
+                <span class="level-item">vagrant</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%9B%E5%9E%8B/">
+            <span class="level-start">
+                <span class="level-item">泛型</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%A8%E5%86%8C%E7%A0%81%E7%A0%B4%E8%A7%A3idea/">
+            <span class="level-start">
+                <span class="level-item">注册码破解idea</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%A0%B4%E8%A7%A3Sketch%E6%96%B9%E6%B3%95%E5%8F%8A%E5%AE%89%E8%A3%85%E5%8C%85/">
+            <span class="level-start">
+                <span class="level-item">破解Sketch方法及安装包</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+            <span class="level-start">
+                <span class="level-item">线程的基本概念以及使用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/IO-%E6%B5%81/" style="font-size: 10px;">IO 流</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">Java 多线程</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Ps/" style="font-size: 10px;">Ps</a> <a href="/tags/Sketch/" style="font-size: 10px;">Sketch</a> <a href="/tags/enum-annotation/" style="font-size: 10px;">enum annotation</a> <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/git-windows-Linux/" style="font-size: 10px;">git windows Linux</a> <a href="/tags/idea-IntelliJ-IDEA-jetbrains/" style="font-size: 10px;">idea IntelliJ IDEA jetbrains</a> <a href="/tags/java%E9%AB%98%E7%BA%A7/" style="font-size: 10px;">java高级</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/CactusA2.png" alt="Git实际操作" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 lixuanfeng&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://lixuanfengs.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

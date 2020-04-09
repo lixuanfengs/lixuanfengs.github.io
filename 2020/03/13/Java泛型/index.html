@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Java泛型 - 仙人球</title>
+
+
+    <meta name="description" content="为什么要有泛型 在集合中使用泛型 自定义泛型结构 泛型在继承上的体现 通配符的使用 泛型应用举例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java泛型">
+<meta property="og:url" content="https://lixuanfengs.github.io/2020/03/13/Java%E6%B3%9B%E5%9E%8B/index.html">
+<meta property="og:site_name" content="仙人球">
+<meta property="og:description" content="为什么要有泛型 在集合中使用泛型 自定义泛型结构 泛型在继承上的体现 通配符的使用 泛型应用举例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lixuanfengs.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-03-13T03:43:41.000Z">
+<meta property="article:modified_time" content="2020-04-08T01:54:59.668Z">
+<meta property="article:author" content="Xuanfeng Li">
+<meta property="article:tag" content="java高级">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lixuanfengs.github.io/images/og_image.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="Java泛型" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/CactusA2.png" alt="Java泛型" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    22 分钟 读完 (大约 3351 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java泛型
+            
+        </h1>
+        <div class="content">
+            <ol>
+<li>为什么要有泛型</li>
+<li>在集合中使用泛型</li>
+<li>自定义泛型结构</li>
+<li>泛型在继承上的体现</li>
+<li>通配符的使用</li>
+<li>泛型应用举例</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="为什么要有泛型-Generic"><a href="#为什么要有泛型-Generic" class="headerlink" title="为什么要有泛型(Generic)?"></a>为什么要有泛型(Generic)?</h2><ul>
+<li><p>泛型：标签</p>
+</li>
+<li><p>举例：</p>
+<ul>
+<li><p>中药店，每个抽屉外面贴着标签</p>
+</li>
+<li><p>超市购物架上很多瓶子，每个瓶子装的是什么，有标签</p>
+<p><img src="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/%E6%B3%9B%E5%9E%8B001.PNG" alt></p>
+</li>
+</ul>
+</li>
+<li><p>泛型的设计背景</p>
+<ul>
+<li>集合容器类在设计阶段/声明阶段不能确定这个容器到底实际存的是什么类型的对象，所以在<strong>JDK1.5之前只能把元素类型设计为Object，JDK1.5之后使用泛型来解决</strong>。因为这个时候除了元素的类型不确定，其他的部分是确定的，例如关于这个元素如何保存，如何管理等是确定的，因此此时<code>把元素的类型设计成一个参数，这个类型参数叫做泛型。Collection&lt;E&gt;，List&lt;E&gt;，ArrayList&lt;E&gt; 这个&lt;E&gt;就是类型参数，即泛型</code>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>泛型的概念</strong></p>
+<ul>
+<li>所谓泛型，就是允许在定义类、接口时通过一个标识表示类中某个属性的类型或者是某个方法的返回值及参数类型。这个类型参数将在使用时（例如， 继承或实现这个接口，用这个类型声明变量、创建对象时）确定（即传入实际的类型参数，也称为类型实参）。</li>
+<li>从JDK1.5以后，Java引入了“参数化类型（Parameterized type）”的概念， 允许我们在创建集合时再指定集合元素的类型，正如：List<String>，这表明该List只能保存字符串类型的对象。</String></li>
+<li>JDK1.5改写了集合框架中的全部接口和类，为这些接口、类增加了泛型支持， 从而可以在声明集合变量、创建集合对象时传入类型实参。</li>
+</ul>
+<p><strong>那么为什么要有泛型呢，直接Object不是也可以存储数据吗？</strong></p>
+<ol>
+<li>解决元素存储安全性问题，好比商品、药品标签，不会弄错。</li>
+<li>解决获取数据元素时，需要类型强制转换问题，好比不用每回拿商品、药品都要辨别。</li>
+</ol>
+<p><strong>在集合中没有反泛型时</strong></p>
+<p><img src="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/%E6%B3%9B%E5%9E%8B002.PNG" alt></p>
+<blockquote>
+<ol>
+<li>任何类型都可以添加到集合中：<code>类型不安全</code> </li>
+<li>读取出来的对象需要强转：<code>繁琐可能有 ClassCastException</code>                    </li>
+</ol>
+</blockquote>
+<p><strong>在集合中有泛型时</strong></p>
+<p><img src="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/%E6%B3%9B%E5%9E%8B003.PNG" alt></p>
+<blockquote>
+<ol>
+<li>只有指定类型才可以添加到集合中：<code>类型安全</code></li>
+<li>读取出来的对象不需要强转：<code>便捷</code></li>
+</ol>
+</blockquote>
+<p><strong><em>Java泛型可以保证如果程序在编译时没有发出警告，运行时就不会产生ClassCastException异常。同时，代码更加简洁、健壮。</em></strong></p>
+<h2 id="在集合中使用泛型"><a href="#在集合中使用泛型" class="headerlink" title="在集合中使用泛型"></a>在集合中使用泛型</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();<span class="comment">//类型推断</span></span><br><span class="line">list.add(<span class="number">78</span>);</span><br><span class="line">list.add(<span class="number">88</span>);</span><br><span class="line">list.add(<span class="number">77</span>);</span><br><span class="line">list.add(<span class="number">66</span>);</span><br><span class="line"><span class="comment">//遍历方式一：</span></span><br><span class="line"><span class="comment">//for(Integer i : list)&#123;</span></span><br><span class="line">    <span class="comment">//不需要强转</span></span><br><span class="line">    <span class="comment">//System.out.println(i);</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="comment">//遍历方式二：</span></span><br><span class="line">Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">	System.out.println(iterator.next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String,Integer&gt;();</span><br><span class="line"></span><br><span class="line">map.put(<span class="string">"Tom1"</span>,<span class="number">34</span>);</span><br><span class="line">map.put(<span class="string">"Tom2"</span>,<span class="number">44</span>);</span><br><span class="line">map.put(<span class="string">"Tom3"</span>,<span class="number">33</span>);</span><br><span class="line">map.put(<span class="string">"Tom4"</span>,<span class="number">32</span>);</span><br><span class="line"><span class="comment">//添加失败</span></span><br><span class="line"><span class="comment">//map.put(33, "Tom");</span></span><br><span class="line"></span><br><span class="line">Set&lt;Entry&lt;String,Integer&gt;&gt; entrySet = map.entrySet();</span><br><span class="line"></span><br><span class="line">Iterator&lt;Entry&lt;String,Integer&gt;&gt; iterator =	entrySet.iterator();</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">Entry&lt;String,Integer&gt; entry = iterator.next();</span><br><span class="line">	System.out.println(entry.getKey() + <span class="string">"---&gt;"</span> + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义泛型结构"><a href="#自定义泛型结构" class="headerlink" title="自定义泛型结构"></a>自定义泛型结构</h2><ul>
+<li>自定义泛型类 </li>
+<li>自定义泛型接口</li>
+<li>自定义泛型方法</li>
+</ul>
+<ol>
+<li><p>泛型的声明：</p>
+<p>interface List<T> 和 class GenTest&lt;K,V&gt;</T></p>
+<p>其中，T,K,V不代表值，而是表示类型。这里使用任意字母都可以。</p>
+<p>常用T表示，是Type的缩写。</p>
+</li>
+<li><p>泛型的实例化：</p>
+<p>一定要在类名后面指定类型参数值（类型）。如：</p>
+<p><code>List&lt;String&gt; strList = new ArrayList&lt;String&gt;();</code> </p>
+<p><code>Iterator&lt;Customer&gt; iterator = customers.iterator();</code></p>
+<ul>
+<li><p>T 只能时类，不能用基本数据类型填充。但可以使用包装类填充</p>
+</li>
+<li><p>把一个集合中的内容限制为一个特定的数据类型，这就是 generics背后的人核心思想</p>
+<p><code>Comparable c = new Date();</code><br><code>System.out.println(c.compareTo(&quot;red&quot;));</code></p>
+<blockquote>
+<p>JDK1.5 之前</p>
+</blockquote>
+<p><code>Comparable&lt;Date&gt; c = new Date();</code><br><code>System.out.println(c.compareTo(&quot;red&quot;));</code></p>
+<blockquote>
+<p>JDK1.5</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>体会：使用泛型的主要优点是能够在编译时而不是在运行时检测错误</p>
+</blockquote>
+<h3 id="自定义泛型结构：泛型类、泛型接口"><a href="#自定义泛型结构：泛型类、泛型接口" class="headerlink" title="自定义泛型结构：泛型类、泛型接口"></a>自定义泛型结构：泛型类、泛型接口</h3><ol>
+<li><p>泛型类可能有多个参数，此时应将多个参数一起放在尖括号内。比如：&lt;E1,E2,E3&gt;</p>
+</li>
+<li><p>泛型类的构造器如下：public GenericClass(){}。 而下面是错误的：public GenericClass<E>(){}</E></p>
+</li>
+<li><p>实例化后，操作原来泛型位置的结构必须与指定的泛型类型一致</p>
+</li>
+<li><p>泛型不同的引用不能相互赋值。</p>
+<ol>
+<li>尽管在编译时<code>ArrayList&lt;String&gt;</code>和<code>ArrayList&lt;Integer&gt;</code>是两种类型，但是，在运行时只有一个ArrayList被加载到JVM中。</li>
+</ol>
+</li>
+<li><p>泛型如果不指定，将被擦除，泛型对应的类型均按照Object处理，但不等价于Object。经验：泛型要使用一路都用。要不用，一路都不要用</p>
+</li>
+<li><p>如果泛型结构是一个接口或抽象类，则不可创建泛型类的对象</p>
+</li>
+<li><p>jdk1.7 泛型的简化操作：<code>ArrayList &lt;Fruit&gt; first = new ArrayList&lt;&gt;();</code></p>
+</li>
+<li><p>泛型的指定中不能使用基本数据类型，可以使用包装类替换</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenericTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1、使用时：类似于Object，不等同于Object </span></span><br><span class="line">        ArrayList list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="comment">// list.add(new Date());//有风险</span></span><br><span class="line">        list.add(<span class="string">"hello"</span>);</span><br><span class="line">        test(list);<span class="comment">// 泛型擦除，编译不会类型检查</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ArrayList&lt;Object&gt; list2 = new ArrayList&lt;Object&gt;();</span></span><br><span class="line">        <span class="comment">// test(list2);//一旦指定Object，编译会类型检查，必须按照Object处理</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(ArrayList&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span> (String s : list) &#123;</span><br><span class="line">        	str += s + <span class="string">","</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"元素:"</span> + str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>在类/接口上声明的泛型，在本类或本接口中即代表某种类型，可以作为非静态属性的类型、非静态方法的参数类型、非静态方法的返回值类型。但在静态方法中不能使用类的泛型。</li>
+<li>异常类不能时泛型。</li>
+<li>不能使用new E[]。但是可以：E[] elements = (E[])new Object[capacity];参考：ArrayList源码中声明：Object[] elementData，而非泛型参数类型数组。</li>
+<li>父类有泛型，子类可以选择保留泛型也可以选择指定泛型类型：<ul>
+<li>子类不保留父类的泛型：按需实现<ul>
+<li>没有类型 擦除</li>
+<li>具体类型</li>
+</ul>
+</li>
+<li>子类保留父类的泛型：泛型子类<ul>
+<li>全部保留</li>
+<li>部分保留</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>结论：子类必须是“富二代”，子类除了指定或保留父类的泛型，还可以增加自己的泛型</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类不保留父类的泛型</span></span><br><span class="line"><span class="comment">// 1)没有类型 擦除</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son1</span> <span class="keyword">extends</span> <span class="title">Father</span> </span>&#123;<span class="comment">// 等价于class Son extends Father&lt;Object,Object&gt;&#123;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2)具体类型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son2</span> <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">Integer</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类保留父类的泛型</span></span><br><span class="line"><span class="comment">// 1)全部保留</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son3</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2)部分保留</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son4</span>&lt;<span class="title">T2</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">Integer</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类不保留父类的泛型</span></span><br><span class="line"><span class="comment">// 1)没有类型 擦除</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son</span>&lt;<span class="title">A</span>, <span class="title">B</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span></span>&#123;<span class="comment">//等价于class Son extends Father&lt;Object,Object&gt;&#123;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2)具体类型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son2</span>&lt;<span class="title">A</span>, <span class="title">B</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">Integer</span>, <span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子类保留父类的泛型</span></span><br><span class="line"><span class="comment">// 1)全部保留</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son3</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>, <span class="title">A</span>, <span class="title">B</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2)部分保留</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Son4</span>&lt;<span class="title">T2</span>, <span class="title">A</span>, <span class="title">B</span>&gt; <span class="keyword">extends</span> <span class="title">Father</span>&lt;<span class="title">Integer</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Class Person&lt;T&gt; &#123;</span><br><span class="line">    <span class="comment">// 使用T类型定义变量</span></span><br><span class="line">    <span class="keyword">private</span> T info;</span><br><span class="line">    <span class="comment">// 使用T类型定义一般方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInfo</span><span class="params">(T info)</span> </span>&#123; <span class="keyword">this</span>.info = info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用T类型定义构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(T info)</span> </span>&#123; </span><br><span class="line">        <span class="keyword">this</span>.info = info;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// static的方法中不能声明泛型</span></span><br><span class="line">    <span class="comment">//public static void show(T t) &#123;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line">    <span class="comment">// 不能在try-catch中使用泛型定义</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//try &#123;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">//&#125; catch (MyException&lt;T&gt; ex) &#123;</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line">   <span class="comment">//&#125;</span></span><br><span class="line"> <span class="comment">// &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义泛型结构：泛型方法"><a href="#自定义泛型结构：泛型方法" class="headerlink" title="自定义泛型结构：泛型方法"></a>自定义泛型结构：泛型方法</h3><ul>
+<li><p>方法，也可以被泛型化，不管此时定义在其中的类是不是泛型类。在泛型方法中可以定义泛型参数，此时，参数的类型就是传入数据的类型。</p>
+</li>
+<li><p>泛型方法的格式：泛型方法的格式：</p>
+<p>[访问权限]  &lt;泛型&gt;  返回类型    方法名([泛型标识 参数名称])    抛出的异常</p>
+</li>
+<li><p>泛型方法声明泛型时也可以指定上限(在12.5中讲)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DAO</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;E&gt; <span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> id, E e)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">    	E result = <span class="keyword">null</span>; </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">fromArrayToCollection</span><span class="params">(T[] a, Collection&lt;T&gt; c)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">for</span> (T o : a) &#123;</span><br><span class="line">   		c.add(o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Object[] ao = <span class="keyword">new</span> Object[<span class="number">100</span>]; </span><br><span class="line">    Collection&lt;Object&gt; co = <span class="keyword">new</span> ArrayList&lt;Object&gt;(); </span><br><span class="line">    fromArrayToCollection(ao, co);</span><br><span class="line"></span><br><span class="line">    String[] sa = <span class="keyword">new</span> String[<span class="number">20</span>]; </span><br><span class="line">    Collection&lt;String&gt; cs = <span class="keyword">new</span> ArrayList&lt;&gt;(); </span><br><span class="line">    fromArrayToCollection(sa, cs);</span><br><span class="line"></span><br><span class="line">    Collection&lt;Double&gt; cd = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">// 下面代码中T是Double类，但sa是String类型，编译错误。</span></span><br><span class="line">    <span class="comment">// fromArrayToCollection(sa, cd);</span></span><br><span class="line">    <span class="comment">// 下面代码中T是Object类型，sa是String类型，可以赋值成功。</span></span><br><span class="line">    fromArrayToCollection(sa, co);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Creature</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Creature</span></span>&#123;&#125; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;&#125; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PersonTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Person&gt; <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(T t)</span></span>&#123;</span><br><span class="line">        System.out.println(t);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        test(<span class="keyword">new</span> Person());</span><br><span class="line">        test(<span class="keyword">new</span> Man());</span><br><span class="line">        <span class="comment">//The method test(T) in the type PersonTest is not</span></span><br><span class="line">        <span class="comment">//applicable for the arguments (Creature) </span></span><br><span class="line">        test(<span class="keyword">new</span> Creature());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型在继承上的体现"><a href="#泛型在继承上的体现" class="headerlink" title="泛型在继承上的体现"></a>泛型在继承上的体现</h2><p><strong>请输出如下的两段代码有何不同</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printCollection</span><span class="params">(Collection c)</span> </span>&#123;</span><br><span class="line">    Iterator i = c.iterator();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; c.size(); k++) &#123;</span><br><span class="line">    	System.out.println(i.next());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printCollection</span><span class="params">(Collection&lt;Object&gt; c)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">for</span> (Object e : c) &#123;</span><br><span class="line">    	System.out.println(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果 B 是 A 的一个子类（子类或者子类接口），而G是具有泛型声明的类或接口，<code>G&lt;B&gt;</code>并不是<code>G&lt;A&gt;</code>的子类型！</p>
+<p>比如：String是Object的子类，但是<code>List&lt;String &gt;</code>并不是<code>List&lt;Object&gt;</code>的子类</p>
+<p><img src="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/%E6%B3%9B%E5%9E%8B004.PNG" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testGenericAndSubClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Person[] persons = <span class="keyword">null</span>;</span><br><span class="line">    Man[] mans = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 而 Person[] 是 Man[] 的父类. </span></span><br><span class="line">    persons = mans;</span><br><span class="line"></span><br><span class="line">    Person p = mans[<span class="number">0</span>];</span><br><span class="line">    <span class="comment">// 在泛型的集合上</span></span><br><span class="line">    List&lt;Person&gt; personList = <span class="keyword">null</span>;</span><br><span class="line">    List&lt;Man&gt; manList = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// personList = manList;(报错)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="通配符的使用"><a href="#通配符的使用" class="headerlink" title="通配符的使用"></a>通配符的使用</h2><ol>
+<li><p>使用类型 <code>通配符：?</code></p>
+<p>比如：<code>List&lt;?&gt; , Map&lt;? , ?&gt;</code></p>
+<p>List&lt;?&gt;是List<String>、List<Object>等各种泛型List的父类。</Object></String></p>
+</li>
+<li><p><code>读取</code> List&lt;?&gt; 的对象 list 中的元素时，永远时安全的，因为不管 list 的真实类型是什么，它包含的都是 Object。</p>
+</li>
+<li><p>写入 list 中的元素时，不行。因为我们不知道 c 的元素类型，我们不能向其中添加对象。</p>
+<ul>
+<li>唯一的例外时 null，它是所有类型的成员。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p><code>将任意元素加入到其中不是类型安全的：</code></p>
+<p><code>Collection&lt;?&gt; c = new ArrayList&lt;String&gt;();</code> </p>
+<p><code>c.add(new Object()); // 编译时错误</code></p>
+<p>因为我们不知道c的元素类型，我们不能向其中添加对象。add方法有类型参数E作为集合的元素类型。我们传给add的任何参数都必须是一个未知类型的子类。因为我们不知道那是什么类型，所以我们无法传任何东西进去。</p>
+</li>
+<li><p><code>唯一的例外的是 null，它是所有类型的成员。</code></p>
+</li>
+<li><p><code>另一方面，我们可以调用 get() 方法并使用其返回值。返回值是一个未知的类型，但是我们知道，它总是一个 Object 。</code></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;?&gt; list = <span class="keyword">null</span>;</span><br><span class="line">    list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    list = <span class="keyword">new</span> ArrayList&lt;Double&gt;();</span><br><span class="line">    <span class="comment">// list.add(3);//编译不通过list.add(null);</span></span><br><span class="line"></span><br><span class="line">    List&lt;String&gt; l1 = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    List&lt;Integer&gt; l2 = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    l1.add(<span class="string">"尚硅谷"</span>); </span><br><span class="line">    l2.add(<span class="number">15</span>);</span><br><span class="line">    read(l1);</span><br><span class="line">    read(l2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(List&lt;?&gt; list)</span> </span>&#123; </span><br><span class="line">	<span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">    	System.out.println(o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="通配符的使用：注意点"><a href="#通配符的使用：注意点" class="headerlink" title="通配符的使用：注意点"></a>通配符的使用：注意点</h3><p><code>//注意点1：编译错误：不能用在泛型方法声明上，返回值类型前面&lt;&gt;不能使用?</code><br><code>public static &lt;?&gt; void test(ArrayList&lt;?&gt; list){</code></p>
+<p><code>}</code></p>
+<p><code>//注意点2：编译错误：不能用在泛型类的声明上</code><br><code>class GenericTypeClass&lt;?&gt;{</code></p>
+<p><code>}</code></p>
+<p><code>/注意点3：编译错误：不能用在创建对象上，右边属于创建集合对象</code></p>
+<p><code>ArrayList&lt;?&gt; list2 = new ArrayList&lt;?&gt;()</code></p>
+<h3 id="通配符的使用：有限制的通配符"><a href="#通配符的使用：有限制的通配符" class="headerlink" title="通配符的使用：有限制的通配符"></a>通配符的使用：有限制的通配符</h3><ul>
+<li><p>&lt;?&gt; </p>
+<ul>
+<li>允许所有泛型的引用调用</li>
+</ul>
+</li>
+<li><p>通配符指定上限</p>
+<ul>
+<li>上限extends：使用时指定的类型必须是继承某个类，或者实现某个接口，即&lt;=</li>
+</ul>
+</li>
+<li><p>通配符指定下限</p>
+<ul>
+<li>下限super：使用时指定的类型不能小于操作的类，即&gt;=</li>
+</ul>
+</li>
+<li><p>举例：</p>
+<ul>
+<li><p>&lt;? extends Number&gt;    (无穷小 , Number]</p>
+<p>只允许泛型为Number及Number子类的引用调用</p>
+</li>
+<li><p>&lt;? super Number&gt;    [Number , 无穷大)</p>
+<p>只允许泛型为Number及Number父类的引用调用</p>
+</li>
+<li><p>&lt;? extends Comparable&gt;</p>
+<p>只允许泛型为实现Comparable接口的实现类的引用调用</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printCollection3</span><span class="params">(Collection&lt;? extends Person&gt; coll)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Iterator只能用Iterator&lt;?&gt;或Iterator&lt;? extends Person&gt;.why? </span></span><br><span class="line">    Iterator&lt;?&gt; iterator = coll.iterator();</span><br><span class="line">    <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    	System.out.println(iterator.next());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printCollection4</span><span class="params">(Collection&lt;? <span class="keyword">super</span> Person&gt; coll)</span> </span>&#123;</span><br><span class="line"><span class="comment">//Iterator只能用Iterator&lt;?&gt;或Iterator&lt;? super Person&gt;.why?</span></span><br><span class="line">    Iterator&lt;?&gt; iterator = coll.iterator();</span><br><span class="line">    <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    	System.out.println(iterator.next());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习题：为什么编译如下的操作会报错？</strong></p>
+<p><img src="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/%E6%B3%9B%E5%9E%8B005.PNG" alt></p>
+<h2 id="泛型应用举例"><a href="#泛型应用举例" class="headerlink" title="泛型应用举例"></a>泛型应用举例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    HashMap&lt;String, ArrayList&lt;Citizen&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;String, ArrayList&lt;Citizen&gt;&gt;();</span><br><span class="line">    ArrayList&lt;Citizen&gt; list = <span class="keyword">new</span> ArrayList&lt;Citizen&gt;();</span><br><span class="line">    list.add(<span class="keyword">new</span> Citizen(<span class="string">"刘恺威"</span>)); </span><br><span class="line">    list.add(<span class="keyword">new</span> Citizen(<span class="string">"杨幂"</span>)); </span><br><span class="line">    list.add(<span class="keyword">new</span> Citizen(<span class="string">"小糯米"</span>)); </span><br><span class="line">    map.put(<span class="string">"刘恺威"</span>, list);</span><br><span class="line">    </span><br><span class="line">    Set&lt;Entry&lt;String, ArrayList&lt;Citizen&gt;&gt;&gt; entrySet = map.entrySet(); 	 	            	Iterator&lt;Entry&lt;String, ArrayList&lt;Citizen&gt;&gt;&gt; iterator = entrySet.iterator(); </span><br><span class="line">  	<span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">        Entry&lt;String, ArrayList&lt;Citizen&gt;&gt; entry = iterator.next(); </span><br><span class="line">        String key = entry.getKey();</span><br><span class="line">        ArrayList&lt;Citizen&gt; value = entry.getValue(); </span><br><span class="line">        System.out.println(<span class="string">" 户 主 ："</span> + key); System.out.println(<span class="string">"家庭成员："</span> + value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="泛型应用举例：实际案例"><a href="#泛型应用举例：实际案例" class="headerlink" title="泛型应用举例：实际案例"></a>泛型应用举例：实际案例</h3><p>用户在设计类的时候往往会使用类的关联关系，例如，一个人中可以定义一个信息的属性，但是一个人可能有各种各样的信息（如联系方式、基本信息等），所以此信息属性的类型就可以通过泛型进行声明，然后只要设计相应的信息类即可。</p>
+<p><img src="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/%E6%B3%9B%E5%9E%8B006.PNG" alt></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/java%E9%AB%98%E7%BA%A7/" rel="tag">java高级</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay_z.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/17/io%E6%B5%81/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">io流</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/">
+                <span class="level-item">java集合类</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '4e4497f2b3716fb4b471',
+        clientSecret: '0c982424c1e0acce984bd955ae1a361dd664b814',
+        id: 'b9af3e77e6e32f862827ccef03e9dce2',
+        repo: 'blog_comment',
+        owner: 'lixuanfengs',
+        admin: "lixuanfengs",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/logo.png" alt="李喧锋">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        李喧锋
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        software engineer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,henan</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            17
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            11
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            13
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/lixuanfengs">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#为什么要有泛型-Generic">
+        <span class="has-mr-6">1</span>
+        <span>为什么要有泛型(Generic)?</span>
+        </a></li><li>
+        <a class="is-flex" href="#在集合中使用泛型">
+        <span class="has-mr-6">2</span>
+        <span>在集合中使用泛型</span>
+        </a></li><li>
+        <a class="is-flex" href="#自定义泛型结构">
+        <span class="has-mr-6">3</span>
+        <span>自定义泛型结构</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#自定义泛型结构：泛型类、泛型接口">
+        <span class="has-mr-6">3.1</span>
+        <span>自定义泛型结构：泛型类、泛型接口</span>
+        </a></li><li>
+        <a class="is-flex" href="#自定义泛型结构：泛型方法">
+        <span class="has-mr-6">3.2</span>
+        <span>自定义泛型结构：泛型方法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#泛型在继承上的体现">
+        <span class="has-mr-6">4</span>
+        <span>泛型在继承上的体现</span>
+        </a></li><li>
+        <a class="is-flex" href="#通配符的使用">
+        <span class="has-mr-6">5</span>
+        <span>通配符的使用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#通配符的使用：注意点">
+        <span class="has-mr-6">5.1</span>
+        <span>通配符的使用：注意点</span>
+        </a></li><li>
+        <a class="is-flex" href="#通配符的使用：有限制的通配符">
+        <span class="has-mr-6">5.2</span>
+        <span>通配符的使用：有限制的通配符</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#泛型应用举例">
+        <span class="has-mr-6">6</span>
+        <span>泛型应用举例</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#泛型应用举例：实际案例">
+        <span class="has-mr-6">6.1</span>
+        <span>泛型应用举例：实际案例</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Lixuanfengs</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Docker/">
+            <span class="level-start">
+                <span class="level-item">Docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java%E9%AB%98%E7%BA%A7/">
+            <span class="level-start">
+                <span class="level-item">Java高级</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/List-Set-Map/">
+            <span class="level-start">
+                <span class="level-item">List Set Map</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/enum-annotation/">
+            <span class="level-start">
+                <span class="level-item">enum annotation</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B1%BB/">
+            <span class="level-start">
+                <span class="level-item">java中常用的类</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vagrant/">
+            <span class="level-start">
+                <span class="level-item">vagrant</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%9B%E5%9E%8B/">
+            <span class="level-start">
+                <span class="level-item">泛型</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%A8%E5%86%8C%E7%A0%81%E7%A0%B4%E8%A7%A3idea/">
+            <span class="level-start">
+                <span class="level-item">注册码破解idea</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%A0%B4%E8%A7%A3Sketch%E6%96%B9%E6%B3%95%E5%8F%8A%E5%AE%89%E8%A3%85%E5%8C%85/">
+            <span class="level-start">
+                <span class="level-item">破解Sketch方法及安装包</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+            <span class="level-start">
+                <span class="level-item">线程的基本概念以及使用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/IO-%E6%B5%81/" style="font-size: 10px;">IO 流</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">Java 多线程</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Ps/" style="font-size: 10px;">Ps</a> <a href="/tags/Sketch/" style="font-size: 10px;">Sketch</a> <a href="/tags/enum-annotation/" style="font-size: 10px;">enum annotation</a> <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/git-windows-Linux/" style="font-size: 10px;">git windows Linux</a> <a href="/tags/idea-IntelliJ-IDEA-jetbrains/" style="font-size: 10px;">idea IntelliJ IDEA jetbrains</a> <a href="/tags/java%E9%AB%98%E7%BA%A7/" style="font-size: 10px;">java高级</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/CactusA2.png" alt="Java泛型" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 xianrenqiu&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://lixuanfengs.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

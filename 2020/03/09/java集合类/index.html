@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>java集合类 - 仙人球</title>
+
+
+    <meta name="description" content="本章主要介绍 Java集合框架概述，Collection接口方法，Iterator迭代器接口，Collection子接口一：List，Collection子接口二：Set，Map接口，Collections工具类的使用方法以及相关的 API。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java集合类">
+<meta property="og:url" content="https://lixuanfengs.github.io/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/index.html">
+<meta property="og:site_name" content="仙人球">
+<meta property="og:description" content="本章主要介绍 Java集合框架概述，Collection接口方法，Iterator迭代器接口，Collection子接口一：List，Collection子接口二：Set，Map接口，Collections工具类的使用方法以及相关的 API。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lixuanfengs.github.io/images/og_image.png">
+<meta property="article:published_time" content="2020-03-09T08:26:08.000Z">
+<meta property="article:modified_time" content="2020-04-08T01:54:59.693Z">
+<meta property="article:author" content="Xuanfeng Li">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lixuanfengs.github.io/images/og_image.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="java集合类" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/CactusA2.png" alt="java集合类" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 小时 读完 (大约 11240 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                java集合类
+            
+        </h1>
+        <div class="content">
+            <p>本章主要介绍 Java集合框架概述，Collection接口方法，Iterator迭代器接口，Collection子接口一：List，Collection子接口二：Set，Map接口，Collections工具类的使用方法以及相关的 API。</p>
+<a id="more"></a>
+
+<h2 id="Java集合框架概述"><a href="#Java集合框架概述" class="headerlink" title="Java集合框架概述"></a>Java集合框架概述</h2><ul>
+<li>一方面， 面向对象语言对事物的体现都是以对象的形式，为了方便对多个对象的操作，就要对对象进行存储。另一方面，使用Array存储对象方面具有<code>一些弊端</code>，而Java 集合就像一种容器，可以动态地把多个对象的引用放入容器中。<ul>
+<li><strong>数组在内存存储方面的特点：</strong><ul>
+<li>数组初始化以后，长度就确定了。</li>
+<li>数组声明的类型，就决定了进行元素初始化时的类型</li>
+</ul>
+</li>
+<li><strong>数组在存储数据方面的弊端：</strong><ul>
+<li>数组初始化以后，长度就不可变了，不便于扩展</li>
+<li>数组中提供的属性和方法少，不便于进行添加、删除、插入等操作，且效率不高。同时无法直接获取存储元素的个数</li>
+<li>数组存储的数据是有序的、可以重复的。    &gt;存储数据的特点单一</li>
+</ul>
+</li>
+<li>Java 集合类可以用于存储数量不等的多个对象，还可用于保存具有映射关系的关联数组。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Java-集合框架概述：集合的使用场景"><a href="#Java-集合框架概述：集合的使用场景" class="headerlink" title="Java 集合框架概述：集合的使用场景"></a>Java 集合框架概述：集合的使用场景</h3><p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/%E9%9B%86%E5%90%8800.PNG" alt></p>
+<p><strong><em>Java 集合可分为 Collection 和 Map 两种体系</em></strong></p>
+<ul>
+<li><p><code>Collection接口：</code>单列数据，定义了存取一组对象的方法的集合</p>
+<ul>
+<li><code>List：</code>元素有序、可重复的集合</li>
+<li><code>Set：</code>元素无序、不可重复的集合</li>
+</ul>
+</li>
+<li><p><code>Set：</code>元素无序、不可重复的集合</p>
+</li>
+</ul>
+<p><strong>Java 集合框架概述：Collection接口继承树</strong></p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/collection00.PNG" alt></p>
+<blockquote>
+<p>JDK提供的集合API位于java.util包内</p>
+</blockquote>
+<p><strong>Java 集合框架概述：Map接口继承树</strong></p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/Map00.PNG" alt></p>
+<h2 id="Collection接口方法"><a href="#Collection接口方法" class="headerlink" title="Collection接口方法"></a>Collection接口方法</h2><p><strong>Collection 接口</strong></p>
+<ul>
+<li>Collection 接口是 List、Set 和 Queue 接口的父接口，该接口里定义的方法既可用于操作 Set 集合，也可用于操作 List 和 Queue 集合。</li>
+<li>JDK不提供此接口的任何直接实现，而是提供更具体的子接口(如：Set和List)实现。</li>
+<li>在 Java5 之前，Java 集合会丢失容器中所有对象的数据类型，把所有对象都当成 Object 类型处理；从 JDK 5.0 增加了泛型以后，Java 集合可以记住容器中对象的数据类型。</li>
+</ul>
+<ol>
+<li><p>添加</p>
+<p>add(Object obj)</p>
+<p>addAll(Collection coll) </p>
+</li>
+<li><p>获取有效元素的个数</p>
+<p>int size() </p>
+</li>
+<li><p>清空集合</p>
+<p>void clear()</p>
+</li>
+<li><p>是否是空集合</p>
+<p>boolean isEmpty() </p>
+</li>
+<li><p>是否包含某个元素</p>
+<p>boolean contains(Object obj)：是通过元素的equals方法来判断是否</p>
+<p>是同一个对象</p>
+<p>boolean containsAll(Collection c)：也是调用元素的equals方法来比较的。拿两个集合的元素挨个比较。</p>
+</li>
+<li><p>删除</p>
+<p>boolean remove(Object obj) ：通过元素的equals方法判断是否是要删除的那个元素。只会删除找到的第一个元素</p>
+<p>boolean removeAll(Collection coll)：取当前集合的差集</p>
+</li>
+<li><p>取两个集合的交集</p>
+<p>boolean retainAll(Collection c)：把交集的结果存在当前集合中，不影响c</p>
+</li>
+<li><p>集合是否相等</p>
+<p>boolean equals(Object obj) </p>
+</li>
+<li><p>转成对象数组</p>
+<p>Object[] toArray()</p>
+</li>
+<li><p>获取集合对象的哈希值</p>
+<p>hashCode() </p>
+</li>
+<li><p>遍历</p>
+<p>iterator()：返回迭代器对象，用于集合遍历</p>
+</li>
+</ol>
+<h2 id="Iterator迭代器接口"><a href="#Iterator迭代器接口" class="headerlink" title="Iterator迭代器接口"></a>Iterator迭代器接口</h2><p><strong>Iterator迭代器接口</strong></p>
+<ul>
+<li>Iterator对象称为迭代器(设计模式的一种)，主要用于遍历 Collection 集合中的元素。</li>
+<li>GOF给迭代器模式的定义为：提供一种方法访问一个容器(container)对象中各个元素，而又不需暴露该对象的内部细节。迭代器模式，就是为容器而生。类似于“公交车上的售票员”、“火车上的乘务员”、“空姐”。</li>
+<li>Collection接口继承了java.lang.Iterable接口，该接口有一个iterator()方法，那么所有实现了Collection接口的集合类都有一个iterator()方法，用以返回一个实现了Iterator接口的对象。</li>
+<li><code>Iterator 仅用于遍历集合</code>，Iterator 本身并不提供承装对象的能力。如果需要创建Iterator 对象，则必须有一个被迭代的集合。</li>
+<li><code>集合对象每次调用iterator()方法都得到一个全新的迭代器对象</code>，默认游标都在集合的第一个元素之前。</li>
+</ul>
+<p><strong>Iterator接口的方法</strong></p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/Iterator.PNG" alt></p>
+<blockquote>
+<p>在调用it.next()方法之前必须要调用it.hasNext()进行检测。若不调用，且下一条记录无效，直接调用it.next()会抛出NoSuchElementException异常。</p>
+</blockquote>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/Iterator01.PNG" alt></p>
+<p><strong>Iterator接口remove()方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator iter = coll.iterator();<span class="comment">//回到起点</span></span><br><span class="line"><span class="keyword">while</span>(iter.hasNext())&#123;</span><br><span class="line">    Object obj = iter.next();</span><br><span class="line">    <span class="keyword">if</span>(obj.equals(<span class="string">"Tom"</span>))&#123;</span><br><span class="line">    	iter.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>注意：</strong><ul>
+<li>Iterator可以删除集合的元素，但是是遍历过程中通过迭代器对象的remove方法，不是集合对象的remove方法。</li>
+<li>如果还未调用next()或在上一次调用 next 方法之后已经调用了 remove 方法，再调用remove都会报IllegalStateException。</li>
+</ul>
+</li>
+</ul>
+<p><strong>使用 foreach 循环遍历集合元素</strong></p>
+<ul>
+<li><p>Java 5.0 提供了 foreach 循环迭代访问 Collection和数组。</p>
+</li>
+<li><p>遍历操作不需获取Collection或数组的长度，无需使用索引访问元素。</p>
+</li>
+<li><p><code>遍历集合的底层调用Iterator完成操作。</code></p>
+</li>
+<li><p>foreach还可以用来遍历数组。</p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/Iterator02.PNG" alt></p>
+</li>
+</ul>
+<p><strong>练习：判断输出结果为何？</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String[] str = <span class="keyword">new</span> String[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">for</span> (String myStr : str) &#123; </span><br><span class="line">            myStr = <span class="string">"xianrenqiu ...."</span>; </span><br><span class="line">            System.out.println(myStr); <span class="comment">// xianrenqiu ....</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length; i++) &#123;</span><br><span class="line">        	System.out.println(str[i]); <span class="comment">// null ....</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Collection子接口之一：List接口"><a href="#Collection子接口之一：List接口" class="headerlink" title="Collection子接口之一：List接口"></a>Collection子接口之一：List接口</h2><p><strong>List接口概述</strong></p>
+<ul>
+<li>鉴于Java中数组用来存储数据的局限性，我们通常使用List替代数组</li>
+<li>List集合类中元素有序、且可重复，集合中的每个元素都有其对应的顺序索引。</li>
+<li>List容器中的元素都对应一个整数型的序号记载其在容器中的位置，可以根据序号存取容器中的元素。</li>
+<li>JDK API中List接口的实现类常用的有：ArrayList、LinkedList和Vector。</li>
+</ul>
+<p><strong>List接口方法</strong></p>
+<ul>
+<li>List除了从Collection集合继承的方法外，List 集合里添加了一些根据索引来操作集合元素的方法。<ul>
+<li>void add(int index, Object ele):在index位置插入ele元素</li>
+<li>boolean addAll(int index, Collection eles):从index位置开始将eles中的所有元素添加进来</li>
+<li>Object get(int index):获取指定index位置的元素</li>
+<li>int indexOf(Object obj):返回obj在集合中首次出现的位置</li>
+<li>int lastIndexOf(Object obj):返回obj在当前集合中末次出现的位置</li>
+<li>Object remove(int index):移除指定index位置的元素，并返回此元素</li>
+<li>Object set(int index, Object ele):设置指定index位置的元素为ele</li>
+<li>List subList(int fromIndex, int toIndex):返回从fromIndex到toIndex位置的子集合</li>
+</ul>
+</li>
+</ul>
+<h3 id="List实现类之一：ArrayList"><a href="#List实现类之一：ArrayList" class="headerlink" title="List实现类之一：ArrayList"></a>List实现类之一：ArrayList</h3><ul>
+<li><p>ArrayList 是 List 接口的典型实现类、主要实现类</p>
+</li>
+<li><p>本质上，ArrayList是对象引用的一个”变长”数组</p>
+</li>
+<li><p><code>ArrayList的JDK1.8之前与之后的实现区别？</code></p>
+<ul>
+<li>JDK1.7：ArrayList像饿汉式，直接创建一个初始容量为10的数组</li>
+<li>JDK1.8：ArrayList像懒汉式，一开始创建一个长度为0的数组，当添加第一个元素时再创建一个始容量为10的数组</li>
+</ul>
+</li>
+<li><p>Arrays.asList(…) 方法返回的 List 集合，既不是 ArrayList 实例，也不是Vector 实例。 Arrays.asList(…)    返回值是一个固定长度的 List 集合</p>
+</li>
+</ul>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/List00.PNG" alt></p>
+<p><strong>【面试题】</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 注意 remove(int index) 和 remove(Object obj);</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testListRemove</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    List list = <span class="keyword">new</span> ArrayList(); </span><br><span class="line">    list.add(<span class="number">1</span>);</span><br><span class="line">    list.add(<span class="number">2</span>);</span><br><span class="line">    list.add(<span class="number">3</span>); </span><br><span class="line">    updateList(list); </span><br><span class="line">    System.out.println(list);<span class="comment">// [1,2]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">updateList</span><span class="params">(List list)</span> </span>&#123;</span><br><span class="line">	list.remove(<span class="number">2</span>);</span><br><span class="line">	<span class="comment">//list.remove(new Integer(2));</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="List实现类之二：LinkedList"><a href="#List实现类之二：LinkedList" class="headerlink" title="List实现类之二：LinkedList"></a>List实现类之二：LinkedList</h3><ul>
+<li>对于频繁的插入或删除元素的操作，建议使用LinkedList类，效率较高。</li>
+<li><code>新增方法：</code><ul>
+<li>void addFirst(Object obj)</li>
+<li>void addLast(Object obj)</li>
+<li>Object getFirst()</li>
+<li>Object getLast()</li>
+<li>Object removeFirst()</li>
+<li>Object removeLast()</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/LinkedList00.PNG" alt></p>
+<ul>
+<li>LinkedList：双向链表，内部没有声明数组，而是定义了Node类型的first和last， 用于记录首末元素。同时，定义内部类Node，作为LinkedList中保存数据的基 本结构。Node除了保存数据，还定义了两个变量：<ul>
+<li>prev变量记录前一个元素的位置</li>
+<li>next变量记录下一个元素的位置</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123; </span><br><span class="line">    E item;</span><br><span class="line">	Node&lt;E&gt; next;</span><br><span class="line">	Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">	Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">		<span class="keyword">this</span>.item = element; </span><br><span class="line">        <span class="keyword">this</span>.next = next; </span><br><span class="line">        <span class="keyword">this</span>.prev = prev;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/LinkedList01.PNG" alt></p>
+<h3 id="List-实现类之三：Vector"><a href="#List-实现类之三：Vector" class="headerlink" title="List 实现类之三：Vector"></a>List 实现类之三：Vector</h3><ul>
+<li>Vector 是一个古老的集合，JDK1.0就有了。大多数操作与ArrayList相同，区别之处在于<code>Vector是线程安全的</code>。</li>
+<li>在各种list中，最好把ArrayList作为缺省选择。当插入、删除频繁时，使用LinkedList；Vector总是比ArrayList慢，所以尽量避免使用</li>
+<li><code>新增方法：</code><ul>
+<li>void addElement(Object obj)</li>
+<li>void insertElementAt(Object obj,int index)</li>
+<li>void setElementAt(Object obj,int index)</li>
+<li>void removeElement(Object obj)</li>
+<li>void removeAllElements()</li>
+</ul>
+</li>
+</ul>
+<p><strong>【面试题】：</strong></p>
+<p>请问ArrayList/LinkedList/Vector的异同？谈谈你的理解？ArrayList底层是什么？扩容机制？Vector和ArrayList的最大区别?</p>
+<ol>
+<li><p>ArrayList和LinkedList的异同</p>
+<p>二者都线程不安全，相对线程安全的Vector，执行效率高。此外，ArrayList是实现了基于动态数组的数据结构，LinkedList基于链表的数据结构。对于随机访问get和set，ArrayList觉得优于LinkedList，因为LinkedList要移动指针。对于新增和删除操作add(特指插入)和remove，LinkedList比较占优势，因为ArrayList要移动数据。</p>
+</li>
+<li><p>ArrayList和Vector的区别</p>
+<p>Vector和ArrayList几乎是完全相同的,唯一的区别在于Vector是同步类(synchronized)，属于强同步类。因此开销就比ArrayList要大，访问要慢。正常情况下,大多数的Java程序员使用ArrayList而不是Vector,因为同步完全可以由程序员自己来控制。Vector每次扩容请求其大小的2倍空间，而ArrayList是1.5倍。Vector还有一个子类Stack。</p>
+</li>
+</ol>
+<h2 id="Collection子接口之二：Set接口"><a href="#Collection子接口之二：Set接口" class="headerlink" title="Collection子接口之二：Set接口"></a>Collection子接口之二：Set接口</h2><p><strong>Set 接口概述</strong></p>
+<ul>
+<li>Set接口是Collection的子接口，set接口没有提供额外的方法</li>
+<li>Set 集合不允许包含相同的元素，如果试把两个相同的元素加入同一个Set 集合中，则添加操作失败。</li>
+<li>Set 判断两个对象是否相同不是使用 == 运算符，而是根据 equals() 方法</li>
+</ul>
+<h3 id="Set实现类之一：HashSet"><a href="#Set实现类之一：HashSet" class="headerlink" title="Set实现类之一：HashSet"></a>Set实现类之一：HashSet</h3><ul>
+<li><p>HashSet 是 Set 接口的典型实现，大多数时候使用 Set 集合时都使用这个实现类。</p>
+</li>
+<li><p>HashSet 按 Hash 算法来存储集合中的元素，因此具有很好的存取、查找、删除性能。</p>
+</li>
+<li><p><code>HashSet 具有以下特点：</code></p>
+<ul>
+<li>不能保证元素的排列顺序</li>
+<li>HashSet 不是线程安全的</li>
+<li>集合元素可以是 null</li>
+</ul>
+</li>
+<li><p>HashSet 集合判断两个元素相等的标准：两个对象通过 hashCode() 方法比较相等，并且两个对象的 equals() 方法返回值也相等</p>
+</li>
+<li><p>对于存放在Set容器中的对象，对应的类一定要重写equals()和hashCode(Object obj)方法，以实现对象相等规则。即：“相等的对象必须具有相等的散列码”。</p>
+</li>
+<li><p><code>向HashSet中添加元素的过程：</code></p>
+<ul>
+<li>当向 HashSet 集合中存入一个元素时，HashSet 会调用该对象的 hashCode() 方法来得到该对象的 hashCode 值，然后根据 hashCode 值，通过某种散列函数决定该对象在 HashSet <code>底层数组中</code>的存储位置。（这个散列函数会与底层数组的长度相计算得到在数组中的下标，并且这种散列函数计算还尽可能保证能均匀存储元素，越是散列分布，该散  列函数设计的越好）</li>
+<li>如果两个元素的 equals() 方法返回 true，但它们的 hashCode() 返回值不相等，hashSet 将会把它们存储在不同的位置，但依然可以添加成功。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/hashset00.PNG" alt></p>
+<blockquote>
+<p>底层也是数组，初始容量为16，当如果使用率超过0.75，（16*0.75=12）就会扩大容量为原来的2倍。（16扩容为32，依次为64,128    等）</p>
+</blockquote>
+<p><strong>重写 hashCode() 方法的基本原则</strong></p>
+<ul>
+<li>在程序运行时，同一个对象多次调用 hashCode() 方法应该返回相同的值。</li>
+<li>当两个对象的 equals() 方法比较返回 true 时，这两个对象的 hashCode()方法的返回值也应相等。</li>
+<li>对象中用作 equals() 方法比较的 Field，都应该用来计算 hashCode 值。</li>
+</ul>
+<p><strong>重写 equals() 方法的基本原则</strong></p>
+<p>以自定义的Customer类为例，何时需要重写equals()？</p>
+<ul>
+<li><p>当一个类有自己特有的“逻辑相等”概念,当改写equals()的时候，总是要改写hashCode()，根据一个类的equals方法（改写后），两个截然不 同的实例有可能在逻辑上是相等的，但是，根据Object.hashCode()方法， 它们仅仅是两个对象。</p>
+</li>
+<li><p>因此，违反了<code>“相等的对象必须具有相等的散列码”</code>。</p>
+</li>
+<li><p>结论：复写 equals 方法的时候一般都需要同时腹泻 hashCode 方法。<code>通常参与计算机 hashCode 的对象的属性也应该参与到 equals() 中进行计算</code>。</p>
+</li>
+</ul>
+<p><strong>Eclipse/IDEA 工具里 hashCode() 的重写</strong></p>
+<p>以Eclipse/IDEA为例，在自定义类中可以调用工具自动重写equals和hashCode问题：<code>为什么用Eclipse/IDEA复写hashCode方法，有31这个数字？</code></p>
+<ol>
+<li>选择系数的时候要选择尽量大的系数。因为如果计算出来的hash地址越大，所谓的“冲突”就越少，查找起来效率也会提高。（减少冲突）</li>
+<li>并且31只占用5bits,相乘造成数据溢出的概率较小。</li>
+<li>31可以 由i*31== (i&lt;&lt;5)-1来表示,现在很多虚拟机里面都有做相关优化。（提高算法效率）</li>
+<li>31是一个素数，素数作用就是如果我用一个数字来乘以这个素数，那么最终出来的结果只能被素数本身和被乘数还有1来整除！(减少冲突)</li>
+</ol>
+<h3 id="Set实现类之二：LinkedHashSet"><a href="#Set实现类之二：LinkedHashSet" class="headerlink" title="Set实现类之二：LinkedHashSet"></a>Set实现类之二：LinkedHashSet</h3><ul>
+<li>LinkedHashSet 是 HashSet 的子类</li>
+<li>LinkedHashSet 根据元素的 hashCode 值来决定元素的存储位置， 但它同时使用双向链表维护元素的次序，这使得元素看起来是以<code>插入顺序保存</code>的。</li>
+<li><code>LinkedHashSet插入性能略低于 HashSet</code>，但在迭代访问 Set 里的全部元素时有很好的性能。</li>
+<li>LinkedHashSet 不允许集合元素重复。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Set set = <span class="keyword">new</span> LinkedHashSet(); </span><br><span class="line">set.add(<span class="keyword">new</span> String(<span class="string">"AA"</span>)); </span><br><span class="line">set.add(<span class="number">456</span>);</span><br><span class="line">set.add(<span class="number">456</span>);</span><br><span class="line">set.add(<span class="keyword">new</span> Customer(<span class="string">"刘德华"</span>, <span class="number">1001</span>));</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/LinkedHashSet00.PNG" alt></p>
+<blockquote>
+<p>LinkedHashSet底层结构</p>
+</blockquote>
+<h3 id="Set实现类之三：TreeSet"><a href="#Set实现类之三：TreeSet" class="headerlink" title="Set实现类之三：TreeSet"></a>Set实现类之三：TreeSet</h3><ul>
+<li><p>TreeSet 是 SortedSet 接口的实现类，TreeSet 可以确保集合元素处于排序状态。</p>
+</li>
+<li><p>TreeSet底层使用<code>红黑树</code>结构存储数据</p>
+</li>
+<li><p>新增的方法如下：（了解）</p>
+<ul>
+<li>Comparator comparator()</li>
+<li>Object first()</li>
+<li>Object last()</li>
+<li>Object lower(Object e)</li>
+<li>Object higher(Object e)</li>
+<li>SortedSet subSet(fromElement, toElement)</li>
+<li>SortedSet headSet(toElement)</li>
+<li>SortedSet tailSet(fromElement)</li>
+</ul>
+</li>
+<li><p>TreeSet 两种排序方法：<code>自然排序</code>和<code>定制排序</code>。默认情况下，TreeSet 采用自然排序。</p>
+</li>
+<li><p>TreeSet 和后面要讲的TreeMap采用红黑树的存储结构</p>
+</li>
+<li><p>特点：有序，查找速度比List 快</p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/TreeSet00.PNG" alt></p>
+</li>
+</ul>
+<p><strong>排序-自然排序</strong></p>
+<ul>
+<li><p><code>自然排序：</code>TreeSet 会调用集合元素的 compareTo(Object obj) 方法来比较元素之间的大小关系，然后将集合元素按升序(默认情况)排列</p>
+</li>
+<li><p><code>如果试图把一个对象添加到 TreeSet 时，则该对象的类必须实现 Comparable接口。</code></p>
+<ul>
+<li>实现 Comparable 的类必须实现 compareTo(Object obj) 方法，两个对象即通过compareTo(Object obj) 方法的返回值来比较大小。</li>
+</ul>
+</li>
+<li><p>Comparable 的典型实现：</p>
+<ul>
+<li>BigDecimal、BigInteger 以及所有的数值型对应的包装类：按它们对应的数值大小进行比较</li>
+<li>Character：按字符的 unicode值来进行比较</li>
+<li>Boolean：true 对应的包装类实例大于 false 对应的包装类实例</li>
+<li>String：按字符串中字符的 unicode 值进行比较</li>
+<li>Date、Time：后边的时间、日期比前面的时间、日期大</li>
+</ul>
+</li>
+<li><p>向 TreeSet 中添加元素时，只有第一个元素无须比较compareTo()方法，后面添加的所有元素都会调用compareTo()方法进行比较。</p>
+</li>
+<li><p><strong>因为只有相同类的两个实例才会比较大小，所以向 TreeSet 中添加的应该是同一个类的对象。</strong></p>
+</li>
+<li><p>对于 TreeSet 集合而言，它判断两个对象是否相等的唯一标准是：两个对象通过 compareTo(Object obj) 方法比较返回值。</p>
+</li>
+<li><p>当需要把一个对象放入 TreeSet 中，重写该对象对应的 equals() 方法时，应保证该方法与compareTo(Object obj) 方法有一致的结果：如果两个对象通过equals() 方法比较返回 true，则通过 compareTo(Object obj) 方法比较应返回 0。否则，让人难以理解。</p>
+</li>
+</ul>
+<p><code>排序-定制排序</code></p>
+<ul>
+<li><p>TreeSet的自然排序要求元素所属的类实现Comparable接口，如果元素所属的类没有实现Comparable接口，或不希望按照升序(默认情况)的方式排列元素或希望按照其它属性大小进行排序，则考虑使用定制排序。定制排序，通过Comparator接口来实现。需要重写compare(T o1,T o2)方法。</p>
+</li>
+<li><p>利用int compare(T o1,T o2)方法，比较o1和o2的大小：如果方法返回正整数，则表示o1大于o2；如果返回0，表示相等；返回负整数，表示o1小于o2。</p>
+</li>
+<li><p>要实现定制排序，需要将实现Comparator接口的实例作为形参传递给TreeSet的构造器。</p>
+</li>
+<li><p>此时，<code>仍然只能向TreeSet中添加类型相同的对象</code>。否则发生ClassCastException异常。</p>
+</li>
+<li><p>使用定制排序<code>判断两个元素相等的标准</code>是：通过Comparator比较两个元素返回了0。</p>
+</li>
+</ul>
+<p>【面试题】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注意先 用 hashCode 判断 hash 值是否相等， 然后再用 equals 作比较。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    HashSet set = <span class="keyword">new</span> HashSet();</span><br><span class="line">    Person p1 = <span class="keyword">new</span> Person(<span class="number">1001</span>,<span class="string">"AA"</span>);</span><br><span class="line">    Person p2 = <span class="keyword">new</span> Person(<span class="number">1002</span>,<span class="string">"BB"</span>);</span><br><span class="line"></span><br><span class="line">    set.add(p1);</span><br><span class="line">    set.add(p2);</span><br><span class="line">    System.out.println(set);</span><br><span class="line"></span><br><span class="line">    p1.name = <span class="string">"CC"</span>;</span><br><span class="line">    set.remove(p1);</span><br><span class="line">    System.out.println(set);</span><br><span class="line">    set.add(<span class="keyword">new</span> Person(<span class="number">1001</span>,<span class="string">"CC"</span>));</span><br><span class="line">    System.out.println(set);</span><br><span class="line">    set.add(<span class="keyword">new</span> Person(<span class="number">1001</span>,<span class="string">"AA"</span>));</span><br><span class="line">    System.out.println(set);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习：在List内去除重复数字值，要求尽量简单</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在List内去除重复数字值，要求尽量简单</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List <span class="title">duplicateList</span><span class="params">(List list)</span> </span>&#123; </span><br><span class="line">    HashSet set = <span class="keyword">new</span> HashSet(); </span><br><span class="line">    set.addAll(list);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ArrayList(set);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">    List list = <span class="keyword">new</span> ArrayList(); </span><br><span class="line">    list.add(<span class="keyword">new</span> Integer(<span class="number">1</span>)); </span><br><span class="line">    list.add(<span class="keyword">new</span> Integer(<span class="number">2</span>)); </span><br><span class="line">    list.add(<span class="keyword">new</span> Integer(<span class="number">2</span>)); </span><br><span class="line">    list.add(<span class="keyword">new</span> Integer(<span class="number">4</span>)); </span><br><span class="line">    list.add(<span class="keyword">new</span> Integer(<span class="number">4</span>));</span><br><span class="line">	List list2 = duplicateList(list);</span><br><span class="line">    <span class="keyword">for</span> (Object integer : list2) &#123;</span><br><span class="line">    	System.out.println(integer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Map接口"><a href="#Map接口" class="headerlink" title="Map接口"></a>Map接口</h2><p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/map01.PNG" alt></p>
+<p><strong>Map接口概述</strong></p>
+<p><strong>y=f(x)</strong></p>
+<p>(x1,y1) (x2,y2),…</p>
+<ul>
+<li>Map与Collection并列存在。用于保存具有<code>映射关系</code>的数据:key-value</li>
+<li>Map 中的 key 和 value 都可以是任何引用类型的数据</li>
+<li>Map 中的 <code>key 用Set来存放，不允许重复</code>，即同一个 Map 对象所对应的类，须重写hashCode()和equals()方法</li>
+<li>常用String类作为Map的“键”</li>
+<li>key 和 value 之间存在单向一对一关系，即通过指定的 key 总能找到唯一的、确定的 value</li>
+<li>Map接口的常用实现类：HashMap、TreeMap、LinkedHashMap和Properties。其中，<code>HashMap是 Map 接口使用频率最高的实现类</code></li>
+</ul>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/map02.PNG" alt></p>
+<p><strong>Map 接口：常用方法</strong></p>
+<ul>
+<li><p><code>添加、删除、修改操作：</code></p>
+<ul>
+<li>Object put(Object key,Object value)：将指定key-value添加到(或修改)当前map对象中</li>
+<li>void putAll(Map m):将m中的所有key-value对，存放到当前map中</li>
+<li>Object remove(Object key)：移除指定key的key-value对，并返回value</li>
+<li>void clear()：清空当前map中的所有数据</li>
+</ul>
+</li>
+<li><p><code>元素查询的操作：</code></p>
+<ul>
+<li>Object get(Object key)：获取指定key对应的value</li>
+<li>boolean containsKey(Object key)：是否包含指定的key</li>
+<li>boolean containsValue(Object value)：是否包含指定的value</li>
+<li>Int size()：返回map中key-value对的个数</li>
+<li>boolean isEmpty()：判断当前map是否为空</li>
+<li>boolean equals(Object obj)：判断当前map和参数对象obj是否相等</li>
+</ul>
+</li>
+<li><p><code>元视图操作的方法:</code></p>
+<ul>
+<li><p>Set keySet()：返回所有key构成的Set集合</p>
+</li>
+<li><p>Collection values()：返回所有value构成的Collection集合</p>
+</li>
+<li><p>Set entrySet()：返回所有key-value对构成的Set集合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line"><span class="comment">//map.put(..,..)省略</span></span><br><span class="line">System.out.println(<span class="string">"map的所有key:"</span>); </span><br><span class="line">Set keys = map.keySet();<span class="comment">// HashSet</span></span><br><span class="line"><span class="keyword">for</span> (Object key : keys) &#123;</span><br><span class="line">	System.out.println(key + <span class="string">"-&gt;"</span> + map.get(key));</span><br><span class="line">&#125;</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">System.out.println(<span class="string">"map的所有的value："</span>); </span><br><span class="line">Collection values = map.values();</span><br><span class="line">Iterator iter = values.iterator();</span><br><span class="line"><span class="keyword">while</span> (iter.hasNext()) &#123;</span><br><span class="line">	System.out.println(iter.next());</span><br><span class="line">&#125;</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">System.out.println(<span class="string">"map所有的映射关系："</span>);</span><br><span class="line"><span class="comment">// 映射关系的类型是Map.Entry类型，它是Map接口的内部接口</span></span><br><span class="line">Set mappings = map.entrySet();</span><br><span class="line"><span class="keyword">for</span> (Object mapping : mappings) &#123;</span><br><span class="line">	Map.Entry entry = (Map.Entry) mapping;</span><br><span class="line">    System.out.println(<span class="string">"key是："</span> + entry.getKey() + <span class="string">"，value是："</span> + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Map实现类之一：HashMap"><a href="#Map实现类之一：HashMap" class="headerlink" title="Map实现类之一：HashMap"></a>Map实现类之一：HashMap</h3><ul>
+<li><code>HashMap是 Map 接口使用频率最高的实现类</code>。</li>
+<li>允许使用null键和null值，与HashSet一样，不保证映射的顺序。</li>
+<li>所有的key构成的集合是Set:无序的、不可重复的。所以，key所在的类要重写：equals()和hashCode()</li>
+<li>所有的value构成的集合是Collection:无序的、可以重复的。所以，value所在的类要重写：equals()</li>
+<li>一个key-value构成一个entry</li>
+<li>所有的entry构成的集合是Set:无序的、不可重复的</li>
+<li>HashMap <code>判断两个 key 相等的标准</code>是：两个 key 通过 equals() 方法返回 true， hashCode 值也相等。</li>
+<li>HashMap <code>判断两个 value相等的标准</code>是：两个 value 通过 equals() 方法返回 true。</li>
+</ul>
+<p><strong>HashMap的存储结构</strong></p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/HashMap01.PNG" alt></p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/HashMap02.PNG" alt></p>
+<blockquote>
+<p><strong>JDK 7及以前版本：HashMap是数组+链表结构(即为链地址法)</strong> </p>
+<p><strong>JDK 8版本发布以后：HashMap是数组+链表+红黑树实现。</strong></p>
+</blockquote>
+<p><strong>HashMap源码中的重要常量</strong></p>
+<ul>
+<li>DEFAULT_INITIAL_CAPACITY : HashMap 的默认容量，16</li>
+<li>MAXIMUM_CAPACITY ： HashMap 的最大支持容量 ，2^30</li>
+<li>DEFAULT_LOAD_FACTOR：HashMap的默认加载因子</li>
+<li>TREEIFY_THRESHOLD：Bucket中链表长度大于该默认值，转化为红黑树</li>
+<li>UNTREEIFY_THRESHOLD：Bucket中红黑树存储的Node小于该默认值，转化为链表</li>
+<li>MIN_TREEIFY_CAPACITY：桶中的Node被树化时最小的hash表容量。（当桶中Node的数量大到需要变红黑树时，若hash表容量小于MIN_TREEIFY_CAPACITY时，此时应执行 resize扩容操作这个MIN_TREEIFY_CAPACITY的值至少是TREEIFY_THRESHOLD的4倍。）   </li>
+<li>table：存储元素的数组，总是2的n次幂</li>
+<li>entrySet：存储具体元素的集size：HashMap中存储的键值对的数量</li>
+<li>modCount：HashMap扩容和结构改变的次数。</li>
+<li>threshold：扩容的临界值，=容量*填充因子</li>
+</ul>
+<h4 id="HashMap的存储结构：JDK-1-8之前"><a href="#HashMap的存储结构：JDK-1-8之前" class="headerlink" title="HashMap的存储结构：JDK 1.8之前"></a>HashMap的存储结构：JDK 1.8之前</h4><ul>
+<li><p>HashMap的内部存储结构其实是<code>数组和链表的结合</code>。当实例化一个HashMap时， 系统会创建一个长度为Capacity的Entry数组，这个长度在哈希表中被称为容量(Capacity)，在这个数组中可以存放元素的位置我们称之为“桶”(bucket)，每个bucket都有自己的索引，系统可以根据索引快速的查找bucket中的元素。HashMap的内部存储结构其实是数组和链表的结合。当实例化一个HashMap时， 系统会创建一个长度为Capacity的Entry数组，这个长度在哈希表中被称为容量(Capacity)，在这个数组中可以存放元素的位置我们称之为“桶”(bucket)，每个bucket都有自己的索引，系统可以根据索引快速的查找bucket中的元素。</p>
+</li>
+<li><p>每个bucket中存储一个元素，即一个Entry对象，但每一个Entry对象可以带一个引 用变量，用于指向下一个元素，因此，在一个桶中，就有可能生成一个Entry链。而且<code>新添加的元素作为链表的head</code>。</p>
+</li>
+<li><p><strong>添加的元素过程：</strong></p>
+<ul>
+<li>向HashMap中添加entry1(key，value)，需要首先计算entry1中key的哈希值(根据key所在类的hashCode()计算得到)，此哈希值经过处理以后，得到在底层Entry[]数组中要存储的位置i。如果位置i上没有元素，则entry1直接添加成功。如果位置i上已经存在entry2(或还有链表存在的entry3，entry4)，则需要通过循环的方法，依次比较entry1中key和其他的entry。如果彼此hash值不同，则直接添加成功。如果hash值不同，继续比较二者是否equals。如果返回值为true，则使用entry1的value 去替换equals为true的entry的value。如果遍历一遍以后，发现所有的equals返回都为false,则entry1仍可添加成功。entry1指向原有的entry元素。</li>
+</ul>
+</li>
+<li><p><strong>HashMap的扩容:</strong></p>
+<ul>
+<li>当HashMap中的元素越来越多的时候，hash冲突的几率也就越来越高，因为数组的长度是固定的。所以为了提高查询的效率，就要对HashMap的数组进行扩容，<code>而在HashMap数组扩容之后，最消耗性能的点就出现了：原数组中的数据必须重新计算其在新数组中的位置，并放进去，这就是resize</code>。</li>
+</ul>
+</li>
+<li><p><strong>那么HashMap什么时候进行扩容呢？</strong></p>
+<ul>
+<li>当HashMap 中的元素个数超过数组大小( 数组总大小length, 不是数组中个数size) * loadFactor    时 ， 就 会 进 行 数 组 扩 容 ， loadFactor    的 默 认 值(DEFAULT_LOAD_FACTOR)为0.75，这是一个折中的取值。也就是说，默认情况 下，数组大小(DEFAULT_INITIAL_CAPACITY)为16，那么当HashMap中元素个数 超过16 * 0.75=12（这个值就是代码中的threshold值，也叫做临界值）的时候，就把 数组的大小扩展为 2 * 16=32，即扩大一倍，然后重新计算每个元素在数组中的位置， 而这是一个非常消耗性能的操作，<code>所以如果我们已经预知HashMap中元素的个数， 那么预设元素的个数能够有效的提高HashMap的性能。</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="HashMap的存储结构：JDK-1-8"><a href="#HashMap的存储结构：JDK-1-8" class="headerlink" title="HashMap的存储结构：JDK 1.8"></a>HashMap的存储结构：JDK 1.8</h4><ul>
+<li><p>HashMap 的内部存储结构其实是 <code>数组+链表+树的结合</code>。当实例化一个 HashMap 时，会初始化 initl ialCapacity的Node数组，这个长度在哈希表中被称为容量(Capacity)，在这个数组中可以存放元素的位置我们称之为 “桶”(bucket)，每个bucket都有自己的索引，系统可以根据索引快速的查找bucket中的元素。</p>
+</li>
+<li><p><code>每个bucket中存储一个元素，即一个Node对象</code>，但每一个Node对象可以带一个引用变量next，用于指向下一个元素，因此，<code>在一个桶中，就有可能生成一个Node链。也可能是一个一个TreeNode对象</code>，每一个TreeNode对象可以有两个叶子结点left和right，因此，在一个桶中，就有可能生成一个TreeNode树。而新添加的元素作为链表的last，或树的叶子结点。</p>
+</li>
+<li><p><strong>那么HashMap什么时候进行扩容和树形化呢？</strong></p>
+<ul>
+<li>当HashMap中的元素个数超过数组大小(数组总大小length,不是数组中个数size) * loadFactor 时 ， 就 会 进 行 数 组 扩 容 ， loadFactor 的 默 认 值(DEFAULT_LOAD_FACTOR)为0.75，这是一个折中的取值。也就是说，默认 情况下，数组大小(DEFAULT_INITIAL_CAPACITY)为16，那么当HashMap中 元素个数超过16 * 0.75=12（这个值就是代码中的threshold值，也叫做临界值） 的时候，就把数组的大小扩展为 2 * 16=32，即扩大一倍，然后重新计算每个元素在数组中的位置，而这是一个非常消耗性能的操作，所以如果我们已经预知HashMap中元素的个数，那么预设元素的个数能够有效的提高HashMap的性能。</li>
+<li>当HashMap中的其中一个链的对象个数如果达到了8个，此时如果capacity没有达到64，那么HashMap会先扩容解决，如果已经达到了64，那么这个链会变成树，结点类型由Node变成TreeNode类型。当然，如果当映射关系被移除后， 下次resize方法时判断树的结点个数低于6个，也会把树再转为链表。</li>
+</ul>
+</li>
+<li><p><code>关于映射关系的key是否可以修改？answer：不要修改</code></p>
+<ul>
+<li>映射关系存储到HashMap中会存储key的hash值，这样就不用在每次查找时重新计算每一个Entry或Node（TreeNode）的hash值了，因此如果已经put到Map中的映射关 系，再修改key的属性，而这个属性又参与hashcode值的计算，那么会导致匹配不上。</li>
+</ul>
+</li>
+</ul>
+<p><strong>总结：JDK1.8相较于之前的变化：</strong></p>
+<ol>
+<li>HashMap map = new HashMap();//默认情况下，先不创建长度为16的数组</li>
+<li>当首次调用map.put()时，再创建长度为16的数组</li>
+<li>.数组为Node类型，在jdk7中称为Entry类型</li>
+<li>形成链表结构时，新添加的key-value对在链表的尾部（七上八下）</li>
+<li>当数组指定索引位置的链表长度&gt;8时，且map中的数组的长度&gt; 64时，此索引位置上的所有key-value对使用红黑树进行存储</li>
+</ol>
+<p>【面试题：】</p>
+<p><code>谈谈你对HashMap中put/get方法的认识？如果了解再谈谈HashMap的扩容机制？默认大小是多少？什么是负载因子( 或填充比)？什么是吞吐临界值(或阈值、threshold)？</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 一、Map的实现类的结构：</span></span><br><span class="line"><span class="comment"> *  |----Map:双列数据，存储key-value对的数据   ---类似于高中的函数：y = f(x)</span></span><br><span class="line"><span class="comment"> *         |----HashMap:作为Map的主要实现类；线程不安全的，效率高；存储null的key和value</span></span><br><span class="line"><span class="comment"> *              |----LinkedHashMap:保证在遍历map元素时，可以按照添加的顺序实现遍历。</span></span><br><span class="line"><span class="comment"> *                      原因：在原有的HashMap底层结构基础上，添加了一对指针，指向前一个和后一个元素。</span></span><br><span class="line"><span class="comment"> *                      对于频繁的遍历操作，此类执行效率高于HashMap。</span></span><br><span class="line"><span class="comment"> *         |----TreeMap:保证按照添加的key-value对进行排序，实现排序遍历。此时考虑key的自然排序或定制排序</span></span><br><span class="line"><span class="comment"> *                      底层使用红黑树</span></span><br><span class="line"><span class="comment"> *         |----Hashtable:作为古老的实现类；线程安全的，效率低；不能存储null的key和value</span></span><br><span class="line"><span class="comment"> *              |----Properties:常用来处理配置文件。key和value都是String类型</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *      HashMap的底层：数组+链表  （jdk7及之前）</span></span><br><span class="line"><span class="comment"> *                    数组+链表+红黑树 （jdk 8）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  面试题：</span></span><br><span class="line"><span class="comment"> *  1. HashMap的底层实现原理？</span></span><br><span class="line"><span class="comment"> *  2. HashMap 和 Hashtable的异同？</span></span><br><span class="line"><span class="comment"> *  3. CurrentHashMap 与 Hashtable的异同？（暂时不讲）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  二、Map结构的理解：</span></span><br><span class="line"><span class="comment"> *    Map中的key:无序的、不可重复的，使用Set存储所有的key  ---&gt; key所在的类要重写equals()和hashCode() （以HashMap为例）</span></span><br><span class="line"><span class="comment"> *    Map中的value:无序的、可重复的，使用Collection存储所有的value ---&gt;value所在的类要重写equals()</span></span><br><span class="line"><span class="comment"> *    一个键值对：key-value构成了一个Entry对象。</span></span><br><span class="line"><span class="comment"> *    Map中的entry:无序的、不可重复的，使用Set存储所有的entry</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  三、HashMap的底层实现原理？以jdk7为例说明：</span></span><br><span class="line"><span class="comment"> *      HashMap map = new HashMap():</span></span><br><span class="line"><span class="comment"> *      在实例化以后，底层创建了长度是16的一维数组Entry[] table。</span></span><br><span class="line"><span class="comment"> *      ...可能已经执行过多次put...</span></span><br><span class="line"><span class="comment"> *      map.put(key1,value1):</span></span><br><span class="line"><span class="comment"> *      首先，调用key1所在类的hashCode()计算key1哈希值，此哈希值经过某种算法计算以后，得到在Entry数组中的存放位置。</span></span><br><span class="line"><span class="comment"> *      如果此位置上的数据为空，此时的key1-value1添加成功。 ----情况1</span></span><br><span class="line"><span class="comment"> *      如果此位置上的数据不为空，(意味着此位置上存在一个或多个数据(以链表形式存在)),比较key1和已经存在的一个或多个数据</span></span><br><span class="line"><span class="comment"> *      的哈希值：</span></span><br><span class="line"><span class="comment"> *              如果key1的哈希值与已经存在的数据的哈希值都不相同，此时key1-value1添加成功。----情况2</span></span><br><span class="line"><span class="comment"> *              如果key1的哈希值和已经存在的某一个数据(key2-value2)的哈希值相同，继续比较：调用key1所在类的equals(key2)方法，比较：</span></span><br><span class="line"><span class="comment"> *                      如果equals()返回false:此时key1-value1添加成功。----情况3</span></span><br><span class="line"><span class="comment"> *                      如果equals()返回true:使用value1替换value2。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *       补充：关于情况2和情况3：此时key1-value1和原来的数据以链表的方式存储。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *      在不断的添加过程中，会涉及到扩容问题，当超出临界值(且要存放的位置非空)时，扩容。默认的扩容方式：扩容为原来容量的2倍，并将原有的数据复制过来。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *      jdk8 相较于jdk7在底层实现方面的不同：</span></span><br><span class="line"><span class="comment"> *      1. new HashMap():底层没有创建一个长度为16的数组</span></span><br><span class="line"><span class="comment"> *      2. jdk 8底层的数组是：Node[],而非Entry[]</span></span><br><span class="line"><span class="comment"> *      3. 首次调用put()方法时，底层创建长度为16的数组</span></span><br><span class="line"><span class="comment"> *      4. jdk7底层结构只有：数组+链表。jdk8中底层结构：数组+链表+红黑树。</span></span><br><span class="line"><span class="comment"> *         4.1 形成链表时，七上八下（jdk7:新的元素指向旧的元素。jdk8：旧的元素指向新的元素）</span></span><br><span class="line"><span class="comment">           4.2 当数组的某一个索引位置上的元素以链表形式存在的数据个数 &gt; 8 且当前数组的长度 &gt; 64时，此时此索引位置上的所数据改为使用红黑树存储。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *      DEFAULT_INITIAL_CAPACITY : HashMap的默认容量，16</span></span><br><span class="line"><span class="comment"> *      DEFAULT_LOAD_FACTOR：HashMap的默认加载因子：0.75</span></span><br><span class="line"><span class="comment"> *      threshold：扩容的临界值，=容量*填充因子：16 * 0.75 =&gt; 12</span></span><br><span class="line"><span class="comment"> *      TREEIFY_THRESHOLD：Bucket中链表长度大于该默认值，转化为红黑树:8</span></span><br><span class="line"><span class="comment"> *      MIN_TREEIFY_CAPACITY：桶中的Node被树化时最小的hash表容量:64</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  四、LinkedHashMap的底层实现原理（了解）</span></span><br><span class="line"><span class="comment"> *      源码中：</span></span><br><span class="line"><span class="comment"> *      static class Entry&lt;K,V&gt; extends HashMap.Node&lt;K,V&gt; &#123;</span></span><br><span class="line"><span class="comment">             Entry&lt;K,V&gt; before, after;//能够记录添加的元素的先后顺序</span></span><br><span class="line"><span class="comment">             Entry(int hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span></span><br><span class="line"><span class="comment">                super(hash, key, value, next);</span></span><br><span class="line"><span class="comment">             &#125;</span></span><br><span class="line"><span class="comment">         &#125;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *   五、Map中定义的方法：</span></span><br><span class="line"><span class="comment"> 添加、删除、修改操作：</span></span><br><span class="line"><span class="comment"> Object put(Object key,Object value)：将指定key-value添加到(或修改)当前map对象中</span></span><br><span class="line"><span class="comment"> void putAll(Map m):将m中的所有key-value对存放到当前map中</span></span><br><span class="line"><span class="comment"> Object remove(Object key)：移除指定key的key-value对，并返回value</span></span><br><span class="line"><span class="comment"> void clear()：清空当前map中的所有数据</span></span><br><span class="line"><span class="comment"> 元素查询的操作：</span></span><br><span class="line"><span class="comment"> Object get(Object key)：获取指定key对应的value</span></span><br><span class="line"><span class="comment"> boolean containsKey(Object key)：是否包含指定的key</span></span><br><span class="line"><span class="comment"> boolean containsValue(Object value)：是否包含指定的value</span></span><br><span class="line"><span class="comment"> int size()：返回map中key-value对的个数</span></span><br><span class="line"><span class="comment"> boolean isEmpty()：判断当前map是否为空</span></span><br><span class="line"><span class="comment"> boolean equals(Object obj)：判断当前map和参数对象obj是否相等</span></span><br><span class="line"><span class="comment"> 元视图操作的方法：</span></span><br><span class="line"><span class="comment"> Set keySet()：返回所有key构成的Set集合</span></span><br><span class="line"><span class="comment"> Collection values()：返回所有value构成的Collection集合</span></span><br><span class="line"><span class="comment"> Set entrySet()：返回所有key-value对构成的Set集合</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> *总结：常用方法：</span></span><br><span class="line"><span class="comment"> * 添加：put(Object key,Object value)</span></span><br><span class="line"><span class="comment"> * 删除：remove(Object key)</span></span><br><span class="line"><span class="comment"> * 修改：put(Object key,Object value)</span></span><br><span class="line"><span class="comment"> * 查询：get(Object key)</span></span><br><span class="line"><span class="comment"> * 长度：size()</span></span><br><span class="line"><span class="comment"> * 遍历：keySet() / values() / entrySet()</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> shkstart</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span> 2019 上午 11:15</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment"> 元视图操作的方法：</span></span><br><span class="line"><span class="comment"> Set keySet()：返回所有key构成的Set集合</span></span><br><span class="line"><span class="comment"> Collection values()：返回所有value构成的Collection集合</span></span><br><span class="line"><span class="comment"> Set entrySet()：返回所有key-value对构成的Set集合</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test5</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="string">"AA"</span>,<span class="number">123</span>);</span><br><span class="line">        map.put(<span class="number">45</span>,<span class="number">1234</span>);</span><br><span class="line">        map.put(<span class="string">"BB"</span>,<span class="number">56</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//遍历所有的key集：keySet()</span></span><br><span class="line">        Set set = map.keySet();</span><br><span class="line">            Iterator iterator = set.iterator();</span><br><span class="line">            <span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">                System.out.println(iterator.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="comment">//遍历所有的value集：values()</span></span><br><span class="line">        Collection values = map.values();</span><br><span class="line">        <span class="keyword">for</span>(Object obj : values)&#123;</span><br><span class="line">            System.out.println(obj);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="comment">//遍历所有的key-value</span></span><br><span class="line">        <span class="comment">//方式一：entrySet()</span></span><br><span class="line">        Set entrySet = map.entrySet();</span><br><span class="line">        Iterator iterator1 = entrySet.iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator1.hasNext())&#123;</span><br><span class="line">            Object obj = iterator1.next();</span><br><span class="line">            <span class="comment">//entrySet集合中的元素都是entry</span></span><br><span class="line">            Map.Entry entry = (Map.Entry) obj;</span><br><span class="line">            System.out.println(entry.getKey() + <span class="string">"----&gt;"</span> + entry.getValue());</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="comment">//方式二：</span></span><br><span class="line">        Set keySet = map.keySet();</span><br><span class="line">        Iterator iterator2 = keySet.iterator();</span><br><span class="line">        <span class="keyword">while</span>(iterator2.hasNext())&#123;</span><br><span class="line">            Object key = iterator2.next();</span><br><span class="line">            Object value = map.get(key);</span><br><span class="line">            System.out.println(key + <span class="string">"====="</span> + value);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment"> 元素查询的操作：</span></span><br><span class="line"><span class="comment"> Object get(Object key)：获取指定key对应的value</span></span><br><span class="line"><span class="comment"> boolean containsKey(Object key)：是否包含指定的key</span></span><br><span class="line"><span class="comment"> boolean containsValue(Object value)：是否包含指定的value</span></span><br><span class="line"><span class="comment"> int size()：返回map中key-value对的个数</span></span><br><span class="line"><span class="comment"> boolean isEmpty()：判断当前map是否为空</span></span><br><span class="line"><span class="comment"> boolean equals(Object obj)：判断当前map和参数对象obj是否相等</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test4</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="string">"AA"</span>,<span class="number">123</span>);</span><br><span class="line">        map.put(<span class="number">45</span>,<span class="number">123</span>);</span><br><span class="line">        map.put(<span class="string">"BB"</span>,<span class="number">56</span>);</span><br><span class="line">        <span class="comment">// Object get(Object key)</span></span><br><span class="line">        System.out.println(map.get(<span class="number">45</span>));</span><br><span class="line">        <span class="comment">//containsKey(Object key)</span></span><br><span class="line">        <span class="keyword">boolean</span> isExist = map.containsKey(<span class="string">"BB"</span>);</span><br><span class="line">        System.out.println(isExist);</span><br><span class="line"></span><br><span class="line">        isExist = map.containsValue(<span class="number">123</span>);</span><br><span class="line">        System.out.println(isExist);</span><br><span class="line"></span><br><span class="line">        map.clear();</span><br><span class="line"></span><br><span class="line">        System.out.println(map.isEmpty());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     添加、删除、修改操作：</span></span><br><span class="line"><span class="comment"> Object put(Object key,Object value)：将指定key-value添加到(或修改)当前map对象中</span></span><br><span class="line"><span class="comment"> void putAll(Map m):将m中的所有key-value对存放到当前map中</span></span><br><span class="line"><span class="comment"> Object remove(Object key)：移除指定key的key-value对，并返回value</span></span><br><span class="line"><span class="comment"> void clear()：清空当前map中的所有数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        <span class="comment">//添加</span></span><br><span class="line">        map.put(<span class="string">"AA"</span>,<span class="number">123</span>);</span><br><span class="line">        map.put(<span class="number">45</span>,<span class="number">123</span>);</span><br><span class="line">        map.put(<span class="string">"BB"</span>,<span class="number">56</span>);</span><br><span class="line">        <span class="comment">//修改</span></span><br><span class="line">        map.put(<span class="string">"AA"</span>,<span class="number">87</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(map);</span><br><span class="line"></span><br><span class="line">        Map map1 = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map1.put(<span class="string">"CC"</span>,<span class="number">123</span>);</span><br><span class="line">        map1.put(<span class="string">"DD"</span>,<span class="number">123</span>);</span><br><span class="line"></span><br><span class="line">        map.putAll(map1);</span><br><span class="line"></span><br><span class="line">        System.out.println(map);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//remove(Object key)</span></span><br><span class="line">        Object value = map.remove(<span class="string">"CC"</span>);</span><br><span class="line">        System.out.println(value);</span><br><span class="line">        System.out.println(map);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//clear()</span></span><br><span class="line">        map.clear();<span class="comment">//与map = null操作不同</span></span><br><span class="line">        System.out.println(map.size());</span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map = <span class="keyword">new</span> LinkedHashMap();</span><br><span class="line">        map.put(<span class="number">123</span>,<span class="string">"AA"</span>);</span><br><span class="line">        map.put(<span class="number">345</span>,<span class="string">"BB"</span>);</span><br><span class="line">        map.put(<span class="number">12</span>,<span class="string">"CC"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line"><span class="comment">//        map = new Hashtable();</span></span><br><span class="line">        map.put(<span class="keyword">null</span>,<span class="number">123</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>负载因子值的大小，对HashMap有什么影响？</code></p>
+<ul>
+<li>负载因子的大小决定了HashMap的数据密度。</li>
+<li>负载因子越大密度越大，发生碰撞的几率越高，数组中的链表越容易长, 造成查询或插入时的比较次数增多，性能会下降。</li>
+<li>负载因子越小，就越容易触发扩容，数据密度也越小，意味着发生碰撞的几率越小，数组中的链表也就越短，查询和插入时比较的次数也越小，性能会更高。但是会浪费一定的内容空间。而且经常扩容也会影响性能，建议初始化预设大一点的空间。</li>
+<li>按照其他语言的参考及研究经验，会考虑将负载因子设置为0.7~0.75，此时平均检索长度接近于常数。</li>
+</ul>
+<h3 id="Map实现类之二：LinkedHashMap"><a href="#Map实现类之二：LinkedHashMap" class="headerlink" title="Map实现类之二：LinkedHashMap"></a>Map实现类之二：LinkedHashMap</h3><ul>
+<li>LinkedHashMap 是 HashMap 的子类</li>
+<li>在HashMap存储结构的基础上，使用了一对双向链表来记录添加元素的顺序</li>
+<li>与LinkedHashSet类似，LinkedHashMap 可以维护 Map 的迭代顺序：迭代顺序与 Key-Value 对的插入顺序一致</li>
+</ul>
+<p><strong>HashMap中的内部类：Node</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value; </span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>LinkedHashMap中的内部类：Entry</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123; </span><br><span class="line">	Entry&lt;K,V&gt; before, after;s</span><br><span class="line">    Entry(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">    	<span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map实现类之三：TreeMap"><a href="#Map实现类之三：TreeMap" class="headerlink" title="Map实现类之三：TreeMap"></a>Map实现类之三：TreeMap</h3><ul>
+<li><p>TreeMap存储 Key-Value 对时，需要根据 key-value 对进行排序。TreeMap 可以保证所有的 Key-Value 对处于<code>有序</code>状态。</p>
+</li>
+<li><p>TreeMap底层使用红黑树结构存储数据</p>
+</li>
+<li><p>TreeMap 的 Key 的排序：</p>
+<ul>
+<li><code>自然排序</code>：TreeMap 的所有的 Key 必须实现 Comparable 接口，而且所有的 Key 应该是同一个类的对象，否则将会抛出 ClasssCastException</li>
+<li><code>定制排序</code>：创建 TreeMap 时，传入一个 Comparator 对象，该对象负责对TreeMap 中的所有 key 进行排序。此时不需要 Map 的 Key 实现Comparable 接口</li>
+</ul>
+</li>
+<li><p>TreeMap判断<code>两个key相等的标准</code>：两个key通过compareTo()方法或者compare()方法返回0。</p>
+</li>
+</ul>
+<h3 id="Map实现类之四：Hashtable"><a href="#Map实现类之四：Hashtable" class="headerlink" title="Map实现类之四：Hashtable"></a>Map实现类之四：Hashtable</h3><ul>
+<li>Hashtable是个古老的 Map 实现类，JDK1.0就提供了。不同于HashMap，Hashtable是线程安全的。</li>
+<li>Hashtable实现原理和HashMap相同，功能相同。底层都使用哈希表结构，查询速度快，很多情况下可以互用。</li>
+<li>与HashMap不同，Hashtable 不允许使用 null 作为 key 和 value</li>
+<li>与HashMap一样，Hashtable 也不能保证其中 Key-Value 对的顺序</li>
+<li>Hashtable判断两个key相等、两个value相等的标准，与HashMap一致。</li>
+</ul>
+<h3 id="Map实现类之五：Properties"><a href="#Map实现类之五：Properties" class="headerlink" title="Map实现类之五：Properties"></a>Map实现类之五：Properties</h3><ul>
+<li>Properties 类是 Hashtable 的子类，该对象用于处理属性文件</li>
+<li>由于属性文件里的 key、value 都是字符串类型，所以 Properties 里的 key和 value 都是字符串类型</li>
+<li>存取数据时，建议使用setProperty(String key,String value)方法和getProperty(String key)方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Properties pros = <span class="keyword">new</span> Properties();</span><br><span class="line">pros.load(<span class="keyword">new</span> FileInputStream(<span class="string">"jdbc.properties"</span>)); </span><br><span class="line">String user = pros.getProperty(<span class="string">"user"</span>); </span><br><span class="line">System.out.println(user);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Collections工具类"><a href="#Collections工具类" class="headerlink" title="Collections工具类"></a>Collections工具类</h2><ul>
+<li><p>Collections 是一个操作 Set、List 和 Map 等集合的工具类</p>
+</li>
+<li><p>Collections 中提供了一系列静态的方法对集合元素进行排序、查询和修改等操作，还提供了对集合对象设置不可变、对集合对象实现同步控制等方法</p>
+</li>
+<li><p><code>排序操作：（均为static方法）</code></p>
+<ul>
+<li>reverse(List)：反转 List 中元素的顺序</li>
+<li>shuffle(List)：对 List 集合元素进行随机排序</li>
+<li>sort(List)：根据元素的自然顺序对指定 List 集合元素按升序排序</li>
+<li>sort(List，Comparator)：根据指定的 Comparator 产生的顺序对 List 集合元素进行排序</li>
+<li>swap(List，int， int)：将指定 list 集合中的 i 处元素和 j 处元素进行交换</li>
+</ul>
+</li>
+</ul>
+<h3 id="Collections常用方法"><a href="#Collections常用方法" class="headerlink" title="Collections常用方法"></a>Collections常用方法</h3><p><strong>查找、替换</strong></p>
+<ul>
+<li>Object max(Collection)：根据元素的自然顺序，返回给定集合中的最大元素</li>
+<li>Object max(Collection，Comparator)：根据 Comparator 指定的顺序，返回给定集合中的最大元素</li>
+<li>Object min(Collection)</li>
+<li>Object min(Collection，Comparator)</li>
+<li>int frequency(Collection，Object)：返回指定集合中指定元素的出现次数</li>
+<li>void copy(List dest,List src)：将src中的内容复制到dest中</li>
+<li>boolean replaceAll(List list，Object oldVal，Object newVal)：使用新值替换List 对象的所有旧值</li>
+</ul>
+<h3 id="Collections常用方法：同步控制"><a href="#Collections常用方法：同步控制" class="headerlink" title="Collections常用方法：同步控制"></a>Collections常用方法：同步控制</h3><ul>
+<li>Collections 类中提供了多个 synchronizedXxx() 方法，该方法可使将指定集合包装成线程同步的集合，从而可以解决多线程并发访问集合时的线程安全问题</li>
+</ul>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/collections.PNG" alt></p>
+<p><strong>补充：Enumeration</strong></p>
+<ul>
+<li>Enumeration 接口是 Iterator 迭代器的 “古老版本”</li>
+</ul>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/Enumeration.PNG" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Enumeration stringEnum = <span class="keyword">new</span> StringTokenizer(<span class="string">"a-b*c-d-e-g"</span>, <span class="string">"-"</span>);</span><br><span class="line"><span class="keyword">while</span>(stringEnum.hasMoreElements())&#123;</span><br><span class="line">	Object obj = stringEnum.nextElement(); </span><br><span class="line">	System.out.println(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>练习</strong></p>
+<ol>
+<li><p>请从键盘随机输入10个整数保存到List中，并按倒序、从大到小的顺序显示出来。</p>
+</li>
+<li><p>请把学生名与考试分数录入到集合中，并按分数显示前三名成绩学员的名字。</p>
+</li>
+</ol>
+<p><strong>练习</strong></p>
+<p><img src="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/%E7%BB%83%E4%B9%A0w.PNG" alt></p>
+<p><strong>练习</strong></p>
+<ol start="4">
+<li>对一个Java源文件中的关键字进行计数。</li>
+</ol>
+<p>提示：Java源文件中的每一个单词，需要确定该单词是否是一个关键字。为了高效处理这个问题，将所有的关键字保存在一个HashSet中。用contains() 来测试。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(<span class="string">"Test.java"</span>); </span><br><span class="line">Scanner scanner = <span class="keyword">new</span> Scanner(file); </span><br><span class="line"><span class="keyword">while</span>(scanner.hasNext())&#123;</span><br><span class="line">    String word = scanner.next();</span><br><span class="line">    System.out.println(word);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay_z.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.jpg" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java泛型</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/03/06/%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/">
+                <span class="level-item">枚举类与注解</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.4.1/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '4e4497f2b3716fb4b471',
+        clientSecret: '0c982424c1e0acce984bd955ae1a361dd664b814',
+        id: '593bfd81f93e3b65f10b79561bdd9a49',
+        repo: 'blog_comment',
+        owner: 'lixuanfengs',
+        admin: "lixuanfengs",
+        createIssueManually: false,
+        distractionFreeMode: false
+    })
+    gitalk.render('comment-container')
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/logo.png" alt="李喧锋">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        李喧锋
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        software engineer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,henan</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            17
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            11
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            13
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="Github" href="https://github.com/lixuanfengs">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#Java集合框架概述">
+        <span class="has-mr-6">1</span>
+        <span>Java集合框架概述</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Java-集合框架概述：集合的使用场景">
+        <span class="has-mr-6">1.1</span>
+        <span>Java 集合框架概述：集合的使用场景</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Collection接口方法">
+        <span class="has-mr-6">2</span>
+        <span>Collection接口方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#Iterator迭代器接口">
+        <span class="has-mr-6">3</span>
+        <span>Iterator迭代器接口</span>
+        </a></li><li>
+        <a class="is-flex" href="#Collection子接口之一：List接口">
+        <span class="has-mr-6">4</span>
+        <span>Collection子接口之一：List接口</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#List实现类之一：ArrayList">
+        <span class="has-mr-6">4.1</span>
+        <span>List实现类之一：ArrayList</span>
+        </a></li><li>
+        <a class="is-flex" href="#List实现类之二：LinkedList">
+        <span class="has-mr-6">4.2</span>
+        <span>List实现类之二：LinkedList</span>
+        </a></li><li>
+        <a class="is-flex" href="#List-实现类之三：Vector">
+        <span class="has-mr-6">4.3</span>
+        <span>List 实现类之三：Vector</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Collection子接口之二：Set接口">
+        <span class="has-mr-6">5</span>
+        <span>Collection子接口之二：Set接口</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Set实现类之一：HashSet">
+        <span class="has-mr-6">5.1</span>
+        <span>Set实现类之一：HashSet</span>
+        </a></li><li>
+        <a class="is-flex" href="#Set实现类之二：LinkedHashSet">
+        <span class="has-mr-6">5.2</span>
+        <span>Set实现类之二：LinkedHashSet</span>
+        </a></li><li>
+        <a class="is-flex" href="#Set实现类之三：TreeSet">
+        <span class="has-mr-6">5.3</span>
+        <span>Set实现类之三：TreeSet</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Map接口">
+        <span class="has-mr-6">6</span>
+        <span>Map接口</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Map实现类之一：HashMap">
+        <span class="has-mr-6">6.1</span>
+        <span>Map实现类之一：HashMap</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#HashMap的存储结构：JDK-1-8之前">
+        <span class="has-mr-6">6.1.1</span>
+        <span>HashMap的存储结构：JDK 1.8之前</span>
+        </a></li><li>
+        <a class="is-flex" href="#HashMap的存储结构：JDK-1-8">
+        <span class="has-mr-6">6.1.2</span>
+        <span>HashMap的存储结构：JDK 1.8</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Map实现类之二：LinkedHashMap">
+        <span class="has-mr-6">6.2</span>
+        <span>Map实现类之二：LinkedHashMap</span>
+        </a></li><li>
+        <a class="is-flex" href="#Map实现类之三：TreeMap">
+        <span class="has-mr-6">6.3</span>
+        <span>Map实现类之三：TreeMap</span>
+        </a></li><li>
+        <a class="is-flex" href="#Map实现类之四：Hashtable">
+        <span class="has-mr-6">6.4</span>
+        <span>Map实现类之四：Hashtable</span>
+        </a></li><li>
+        <a class="is-flex" href="#Map实现类之五：Properties">
+        <span class="has-mr-6">6.5</span>
+        <span>Map实现类之五：Properties</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Collections工具类">
+        <span class="has-mr-6">7</span>
+        <span>Collections工具类</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Collections常用方法">
+        <span class="has-mr-6">7.1</span>
+        <span>Collections常用方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#Collections常用方法：同步控制">
+        <span class="has-mr-6">7.2</span>
+        <span>Collections常用方法：同步控制</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/lixuanfengs" target="_blank" rel="noopener">
+                    <span class="level-left">
+                        <span class="level-item">Lixuanfengs</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Docker/">
+            <span class="level-start">
+                <span class="level-item">Docker</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Java%E9%AB%98%E7%BA%A7/">
+            <span class="level-start">
+                <span class="level-item">Java高级</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/List-Set-Map/">
+            <span class="level-start">
+                <span class="level-item">List Set Map</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/enum-annotation/">
+            <span class="level-start">
+                <span class="level-item">enum annotation</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/git/">
+            <span class="level-start">
+                <span class="level-item">git</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/java%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B1%BB/">
+            <span class="level-start">
+                <span class="level-item">java中常用的类</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/vagrant/">
+            <span class="level-start">
+                <span class="level-item">vagrant</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%9B%E5%9E%8B/">
+            <span class="level-start">
+                <span class="level-item">泛型</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%B3%A8%E5%86%8C%E7%A0%81%E7%A0%B4%E8%A7%A3idea/">
+            <span class="level-start">
+                <span class="level-item">注册码破解idea</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%A0%B4%E8%A7%A3Sketch%E6%96%B9%E6%B3%95%E5%8F%8A%E5%AE%89%E8%A3%85%E5%8C%85/">
+            <span class="level-start">
+                <span class="level-item">破解Sketch方法及安装包</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+            <span class="level-start">
+                <span class="level-item">线程的基本概念以及使用</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/IO-%E6%B5%81/" style="font-size: 10px;">IO 流</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 10px;">Java 多线程</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Ps/" style="font-size: 10px;">Ps</a> <a href="/tags/Sketch/" style="font-size: 10px;">Sketch</a> <a href="/tags/enum-annotation/" style="font-size: 10px;">enum annotation</a> <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/git-windows-Linux/" style="font-size: 10px;">git windows Linux</a> <a href="/tags/idea-IntelliJ-IDEA-jetbrains/" style="font-size: 10px;">idea IntelliJ IDEA jetbrains</a> <a href="/tags/java%E9%AB%98%E7%BA%A7/" style="font-size: 10px;">java高级</a> <a href="/tags/vagrant/" style="font-size: 10px;">vagrant</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="使用Vagrant创建Centos虚拟机">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-08T02:49:49.000Z">2020-04-08</time></div>
+                    <a href="/2020/04/08/%E4%BD%BF%E7%94%A8Vagrant%E5%88%9B%E5%BB%BACentos%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="title has-link-black-ter is-size-6 has-text-weight-normal">使用Vagrant创建Centos虚拟机</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vagrant/">vagrant</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Docker 安装 fastdfs">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-01T07:26:10.000Z">2020-04-01</time></div>
+                    <a href="/2020/04/01/Docker-%E5%AE%89%E8%A3%85-fastdfs/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Docker 安装 fastdfs</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Docker/">Docker</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/17/io%E6%B5%81/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="io流">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-17T03:50:04.000Z">2020-03-17</time></div>
+                    <a href="/2020/03/17/io%E6%B5%81/" class="title has-link-black-ter is-size-6 has-text-weight-normal">io流</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Java%E9%AB%98%E7%BA%A7/">Java高级</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Java泛型">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-13T03:43:41.000Z">2020-03-13</time></div>
+                    <a href="/2020/03/13/Java%E6%B3%9B%E5%9E%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Java泛型</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E6%B3%9B%E5%9E%8B/">泛型</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="java集合类">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-09T08:26:08.000Z">2020-03-09</time></div>
+                    <a href="/2020/03/09/java%E9%9B%86%E5%90%88%E7%B1%BB/" class="title has-link-black-ter is-size-6 has-text-weight-normal">java集合类</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/List-Set-Map/">List Set Map</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">10</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Docker/">
+                        <span class="tag">Docker</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/IO-%E6%B5%81/">
+                        <span class="tag">IO 流</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java/">
+                        <span class="tag">Java</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Java-%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="tag">Java 多线程</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mac/">
+                        <span class="tag">Mac</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Ps/">
+                        <span class="tag">Ps</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Sketch/">
+                        <span class="tag">Sketch</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/enum-annotation/">
+                        <span class="tag">enum annotation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git/">
+                        <span class="tag">git</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/git-windows-Linux/">
+                        <span class="tag">git windows Linux</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/idea-IntelliJ-IDEA-jetbrains/">
+                        <span class="tag">idea IntelliJ IDEA jetbrains</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/java%E9%AB%98%E7%BA%A7/">
+                        <span class="tag">java高级</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vagrant/">
+                        <span class="tag">vagrant</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/CactusA2.png" alt="java集合类" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 仙人球&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/lixuanfengs">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://lixuanfengs.github.io',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
