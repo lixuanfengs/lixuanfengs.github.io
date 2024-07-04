@@ -6,7 +6,7 @@
     <archetype>
       <groupId>io.github.lixuanfengs</groupId>
       <artifactId>ddd-scaffold-lite</artifactId>
-      <version>1.1</version>
+      <version>1.2</version>
       <description>ddd scaffold lite by lixuanfeng</description>
     </archetype>
   </archetypes>
